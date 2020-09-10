@@ -5,24 +5,23 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>James 주식회사 회원가입</title>
 </head>
-<body>
+<body style="background-color: silver">
 	<h2>James 주식회사 회원가입</h2>
-	<form>
-		<div>아이디: <input type="text" name="id"></div>
-		<div>비밀번호: <input type="password" name="pw"></div>
-		<div>이름: <input type="text" name="name"></div>
-		<div>성별: <input type="radio">남
-			<input type="radio">여
-			<input type="reset" value="reset">
-		</div>
-		<div>
-			직업: <select name="job">
-				<option value="">아직고딩</option>
-				<option value="">21세기 대학생</option>
-				<option value="">아이돌</option>
-				<option value="">공유</option>
-			</select>
-		</div>
+	<form method="post" action="">
+		아이디: <input type="text" name="id"><br>
+		비밀번호: <input type="password" name="pw"><br>
+		이름: <input type="text" name="name"><br>
+		<!-- name이 같은 값으로 설정된 radio는 단 1개만 선택가능하다. -->
+		성별: <input type="radio" name="mf" value="male">남
+			<input type="radio" name="mf" value="female">여<br>
+		직업: <select name="job" size="1">
+			<option value="">아직고딩</option>
+			<option value="">21세기 대학생</option>
+			<option value="">아이돌</option>
+			<option value="">공유</option>
+		</select><p>
+		<input type="submit" value="등록">&nbsp;&nbsp;
+		<input type="reset" value="취소">
 	</form>
 	<a href="index.html">뒤로가기</a>
 </body>
