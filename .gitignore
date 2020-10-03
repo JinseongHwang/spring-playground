@@ -25,3 +25,4 @@ hs_err_pid*
 # personaly added
 .project
 bin/
+test.*
