@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>색 선택</title>
+</head>
+<body>
+	<form method="post" action="03_color.jsp">
+		이름: <input type="text" name="name"/><br/>
+		좋아하는 색: <select name="color">
+			<!-- option 태그 안에 value 값을 넣지 않으면, 
+			option 태그 사이에 있는 값이 그대로 전송된다.
+			하지만 value 속성값을 주게 되면 화면에 출력될 때는 태그 사이의 값이 출력되고,
+			action에 전송되는 값은 value의 값이 전달되게 된다. -->
+			<option value="aqua">시원한 아쿠아~</option>
+			<option value="lime">라임색이 좋아요!</option>
+			<option value="orange">상큼한 오렌지색</option>
+			<option value="white">역시 흰색 최고</option>
+		</select><p>
+		<input type="submit" value="확인"/>&nbsp;
+		<input type="reset" value="취소"/>
+	</form>
+
+</body>
+</html>
