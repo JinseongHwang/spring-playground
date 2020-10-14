@@ -1,5 +1,7 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page import="java.io.UnsupportedEncodingException" %>
+<%@ page import="java.net.URLEncoder" %>
+<%@ page import="java.net.URLDecoder" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -12,7 +14,7 @@
 	String youare = request.getParameter("youare");
 %>
 2 <p>
-<%=iam %> <%=youare %> <p>
+<%=URLDecoder.decode(iam, "utf-8") %> <%=youare %> <p>
 3 <p>
 
 </body>

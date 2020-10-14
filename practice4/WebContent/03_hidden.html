@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>취미</title>
+</head>
+<body>
+	<!-- action 속성값을 포함해서, response.sendRedirect(), html <a href> 에서도 get방식으로 전송 가능 -->
+	<form method="post" action="03_hidden.jsp?age=21">
+		이름: <input type="text" name="name"/><p>
+		<input type="hidden" name="hobby" value="밴드"/><p>
+		<input type="submit" value="확인"/>
+	</form>
+</body>
+</html>

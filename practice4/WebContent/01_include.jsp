@@ -1,5 +1,7 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page import="java.io.UnsupportedEncodingException" %>
+<%@ page import="java.net.URLEncoder" %>
+<%@ page import="java.net.URLDecoder" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -12,7 +14,7 @@
 <!-- jsp:include 액션 태그 방식으로 데이터 전송 -->
 <!-- 표현되는 주소창에 ~~01_include.jsp~~ 라고 표시된다. -->
 <jsp:include page="02_receiver.jsp">
-	<jsp:param name="iam" value="APPLE"/>
+	<jsp:param name="iam" value='<%=URLEncoder.encode("사과는APPLE", "utf-8") %>'/>
 	<jsp:param name="youare" value="CARROT"/>
 </jsp:include>
 
