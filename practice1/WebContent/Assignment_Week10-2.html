@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+</html>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>1723940 황진성</title>
+</head>
+<body>
+	<h2>설문조사</h2>
+
+	<form method="post" action="Assignment_Week10-2.jsp">
+		<fieldset>
+			<legend>성별과 나이를 입력하세요.</legend>
+			성별: <input type="radio" name="sex" value="남">남자
+				<input type="radio" name="sex" value="여">여자
+			<br>
+			나이: <input type="text" name="age">
+		</fieldset>
+		<br>
+		<fieldset>
+			<legend>관심있는 식문화를 선택하세요.(1개 이상)</legend>
+			<input type="checkbox" name="food" value="진,워커,소주">진,워커,소주
+			<input type="checkbox" name="food" value="치맥">치맥
+			<input type="checkbox" name="food" value="삼겹살">삼겹삽
+			<input type="checkbox" name="food" value="역시 스테이크">역시 스테이크
+		</fieldset>
+		<br>
+		<fieldset>
+			<legend>나의 자신감은 어느 정도인가?</legend>
+			나는 무지 잘 생겼다. 1<input type="range" name="handsome" min="1" max="5">5<br>
+			나는 맘만 먹으면 A+때리는 건 암것도 아니다. 1<input type="range" name="aplus" min="1" max="5">5<br>
+			내가 수업시간에 딴짓하는 것 같아도 머리로는 다 안다. 1<input type="range" name="iknow" min="1" max="5">5
+		</fieldset>
+		<br>
+		기타 의견 사항
+		<br>
+		<textarea name="comments" rows="4" cols="40">의견을 적으세요.</textarea>
+		<br>
+		<input type="submit" value="확인">&nbsp;
+		<input type="reset" value="취소">
+	</form>
+	
+</body>
+</html>
