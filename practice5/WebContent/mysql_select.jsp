@@ -11,6 +11,11 @@
 String url = "jdbc:mysql://localhost:3306/jspstudy?serverTimezone=UTC";
 String uid = "root"; String pass = "111111";
 String sql = "select * from test_table";
+/*
+	정렬하고자 하면 order by 를 뒤에 붙인다.
+	예를들어, 
+	String sql = "select * from test_table order by name"; 와 같이 표현한다.
+*/
 try {
 	Class.forName("com.mysql.jdbc.Driver");
 	Connection conn = DriverManager.getConnection(url, uid, pass);
