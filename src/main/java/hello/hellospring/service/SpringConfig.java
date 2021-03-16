@@ -1,5 +1,6 @@
 package hello.hellospring.service;
 
+import hello.hellospring.aop.TimeTraceAop;
 import hello.hellospring.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -58,6 +59,15 @@ public class SpringConfig {
 //        return new MemberService(memberRepository());
         return new MemberService(memberRepository);
     }
+
+    /*
+    TimeTraceAop의 Component Scan을 대신하는 방법
+
+    @Bean
+    public TimeTraceAop timeTraceAop() {
+        return new TimeTraceAop();
+    }
+     */
 
     /*
     스프링 데이터 JPA를 사용하면 필요없어지는 코드들
