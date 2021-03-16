@@ -8,6 +8,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.annotation.Commit;
 import org.springframework.transaction.annotation.Transactional;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -35,6 +36,7 @@ class MemberServiceIntegrationTest {
     // static import 생성 : Alt + Enter
 
     @Test
+    // @Commit -> INSERT 쿼리 실행 후 Rollback 대신에 Commit이 되도록 한다. DB에 INSERT가 실제로 발생하게 됨.
     void 회원가입() { // 테스트 함수의 이름은 한글로 작성해도 무방하다.
         // given
         Member member = new Member();
