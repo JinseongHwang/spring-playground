@@ -1,9 +1,13 @@
 package hello.hellospring.service;
 
+import hello.hellospring.repository.JdbcMemberRepository;
 import hello.hellospring.repository.MemberRepository;
 import hello.hellospring.repository.MemoryMemberRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+
+import javax.sql.DataSource;
 
 /**
  * 자동으로 스프링 컨테이너에 올려주는 @Service와 @Repository 어노테이션을 대신해서,
@@ -19,6 +23,15 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class SpringConfig {
 
+    private DataSource dataSource;
+
+    // DataSource는 DB Connection을 획득할 때 사용하는 객체이다.
+    // Spring이 resources/application.properties를 보고 DataSource를 자동으로 생성하고 Spring Bean으로 만든 후 DI를 받게 한다.
+    @Autowired
+    public SpringConfig(DataSource dataSource) {
+        this.dataSource = dataSource;
+    }
+
     @Bean
     public MemberService memberService() {
         return new MemberService(memberRepository());
@@ -26,6 +39,7 @@ public class SpringConfig {
 
     @Bean
     public MemberRepository memberRepository() {
-        return new MemoryMemberRepository();
+//        return new MemoryMemberRepository();
+        return new JdbcMemberRepository(dataSource);
     }
 }
