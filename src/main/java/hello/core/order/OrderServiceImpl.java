@@ -33,9 +33,12 @@ public class OrderServiceImpl implements OrderService {
      * 2-2. 일치하는 타입의 빈이 2개 이상 존재한다면 필드명 또는 파라미터 명으로 빈을 찾아서 연결한다.
      * 3-1. 이름을 의도적으로 바꾸는 것이 싫다면 @Qualifier 도 존재한다. 추가적인 구분자를 만들어주는 역할이다.
      * 3-2. @Qualifier 구분자와 매칭되지 않았다면 그 구분자와 동일한 이름의 빈을 찾아서 연결하는 시도를 한다.(추천X)
+     * ex. RateDiscountPolicy 를 사용하고 싶다면, RateDiscountPolicy.java 클래스 상단에 @Qualifier("mainDiscountPolicy") 추가
+     * -> 아래 생성자의 매개변수 DiscountPolicy 앞에도 @Qualifier("mainDiscountPolicy") 추가 -> 서로 매칭
+     * 4. @Primary 어노테이션을 추가해도 우선권을 가지는 빈으로 설정할 수 있다.
      */
     @Autowired
-    public OrderServiceImpl(MemberRepository memberRepository, @Qualifier("mainDiscountPolicy") DiscountPolicy discountPolicy) {
+    public OrderServiceImpl(MemberRepository memberRepository, DiscountPolicy discountPolicy) {
         // 생성자를 통해 DI를 하고 필드 객체에 final 키워드를 붙이면 여러 잡다한 오류에 힘쓰지 않아도 된다. -> 안정성 Up
         this.memberRepository = memberRepository;
         this.discountPolicy = discountPolicy;
