@@ -1,5 +1,6 @@
 package hello.core.order;
 
+import hello.core.annotation.MainDiscountPolicy;
 import hello.core.discount.DiscountPolicy;
 import hello.core.discount.FixDiscountPolicy;
 import hello.core.discount.RateDiscountPolicy;
@@ -38,7 +39,7 @@ public class OrderServiceImpl implements OrderService {
      * 4. @Primary 어노테이션을 추가해도 우선권을 가지는 빈으로 설정할 수 있다.
      */
     @Autowired
-    public OrderServiceImpl(MemberRepository memberRepository, DiscountPolicy discountPolicy) {
+    public OrderServiceImpl(MemberRepository memberRepository, @MainDiscountPolicy DiscountPolicy discountPolicy) {
         // 생성자를 통해 DI를 하고 필드 객체에 final 키워드를 붙이면 여러 잡다한 오류에 힘쓰지 않아도 된다. -> 안정성 Up
         this.memberRepository = memberRepository;
         this.discountPolicy = discountPolicy;
