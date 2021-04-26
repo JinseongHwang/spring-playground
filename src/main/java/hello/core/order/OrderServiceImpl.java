@@ -6,10 +6,12 @@ import hello.core.discount.RateDiscountPolicy;
 import hello.core.member.Member;
 import hello.core.member.MemberRepository;
 import hello.core.member.MemoryMemberRepository;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 @Component
+@RequiredArgsConstructor // 필수값인 final 필드 2개를 매개변수로 받는 생성자를 만들어준다.
 public class OrderServiceImpl implements OrderService {
 
     // 아래와 같이 작성하면 현재 클래스(OrderServiceImpl)가 구현 객체에 의존하게 된다.
@@ -22,12 +24,14 @@ public class OrderServiceImpl implements OrderService {
     private final MemberRepository memberRepository;
     private final DiscountPolicy discountPolicy;
 
+    /* Lombok: RequiredArgsConstructor 을 추가하면서 제거
     @Autowired // 생성자가 단 하나만 존재한다면 Autowired 어노테이션 생략이 가능하다.
     public OrderServiceImpl(MemberRepository memberRepository, DiscountPolicy discountPolicy) {
         // 생성자를 통해 DI를 하고 필드 객체에 final 키워드를 붙이면 여러 잡다한 오류에 힘쓰지 않아도 된다. -> 안정성 Up
         this.memberRepository = memberRepository;
         this.discountPolicy = discountPolicy;
     }
+     */
 
     @Override
     public Order createOrder(Long memberId, String itemName, int itemPrice) {
