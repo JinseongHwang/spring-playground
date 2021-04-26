@@ -24,6 +24,7 @@ public class OrderServiceImpl implements OrderService {
 
     @Autowired // 생성자가 단 하나만 존재한다면 Autowired 어노테이션 생략이 가능하다.
     public OrderServiceImpl(MemberRepository memberRepository, DiscountPolicy discountPolicy) {
+        // 생성자를 통해 DI를 하고 필드 객체에 final 키워드를 붙이면 여러 잡다한 오류에 힘쓰지 않아도 된다. -> 안정성 Up
         this.memberRepository = memberRepository;
         this.discountPolicy = discountPolicy;
     }
