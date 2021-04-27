@@ -45,6 +45,11 @@ public class SingletonWithPrototypeTest1 {
     static class ClientBean {
 //        private final PrototypeBean prototypeBean;
 
+        /** public Provider<PrototypeBean> prototypeBeanProvider;
+         * 1. .get() 메서드 하나만 존재하며, 매우 심플하고 가볍다.
+         * 2. 하지만 javax.inject 라이브러리를 필요로 하기 때문에 귀찮다.
+         */
+
         public ObjectProvider<PrototypeBean> prototypeBeanProvider;
 
         /**
