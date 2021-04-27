@@ -3,7 +3,8 @@ package hello.core.lifecycle;
 import org.springframework.beans.factory.DisposableBean;
 import org.springframework.beans.factory.InitializingBean;
 
-public class NetworkClient implements InitializingBean, DisposableBean {
+public class NetworkClient {
+    // 인터페이스 방법: +implements InitializingBean, DisposableBean
 
     private String url;
 
@@ -36,18 +37,19 @@ public class NetworkClient implements InitializingBean, DisposableBean {
      * 3. 외부 코드를 가져오는 것이기 때문에 내가 코드를 고칠 수 없다.
      * -> 따라서 지금은 거의 사용되지 않는 방법이다.
      */
-    @Override
-    public void afterPropertiesSet() throws Exception {
+    /**
+     * 빈 설정 정보를 활용하면 원하는 메서드 명으로 수정 가능하다.
+     */
+    public void init() {
         // 의존관계 주입이 끝나면 호출된다.
-        System.out.println("NetworkClient.afterPropertiesSet");
+        System.out.println("NetworkClient.init");
         connect();
         call("초기화 연결 메시지");
     }
 
-    @Override
-    public void destroy() throws Exception {
+    public void close() {
         // 빈이 종료될 때 호출된다.
-        System.out.println("NetworkClient.destroy");
+        System.out.println("NetworkClient.close");
         disconnect();
     }
 }
