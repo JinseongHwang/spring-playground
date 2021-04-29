@@ -6,16 +6,14 @@ spring:
     password:
     driver-class-name: org.h2.Driver
   jpa:
-    hibernate:
-      # 애플리케이션 실행 시점에 DB를 모두 지우고 다시 생성한다.
-      ddl-auto: create
-    properties:
+    hibernate: # Hibernate는 JPA의 구현체이고, 아래에서 설정할 수 있다.
+      ddl-auto: create # 애플리케이션 실행 시점에 DB를 모두 지우고 다시 생성한다.
+    properties: # Hibernate 기본 설정
       hibernate:
-        # show_sql: true
-        format_sql: true
+        # show_sql: true # JPA가 생성하는 쿼리를 console에 출력한다.
+        format_sql: true # JPA가 생성하는 쿼리를 보기 좋게 포맷팅한다.
 
-logging:
+logging: # 로깅에 대한 설정이다.
   level:
-    # JPA 또는 hibernate 가 남기는 모든 SQL을 볼 수 있게 된다.
-    org.hibernate.SQL: debug
-    # org.hibernate.type: trace
+    org.hibernate.SQL: debug # JPA가 생성하는 쿼리를 로그 시스템으로 출력한다.
+    # org.hibernate.type: trace # 쿼리 파라미터를 출력한다. P6SPY로 대체함.
