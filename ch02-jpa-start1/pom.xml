@@ -19,7 +19,8 @@
 		<hibernate.version>4.3.10.Final</hibernate.version>
 		<!-- 데이터베이스 버전 -->
 		<h2db.version>1.4.187</h2db.version>
-
+		<!-- lombok 버전 -->
+		<lombok.version>1.18.12</lombok.version>
 	</properties>
 
 
@@ -35,6 +36,13 @@
 			<groupId>com.h2database</groupId>
 			<artifactId>h2</artifactId>
 			<version>${h2db.version}</version>
+		</dependency>
+		<!-- lombok -->
+		<dependency>
+			<groupId>org.projectlombok</groupId>
+			<artifactId>lombok</artifactId>
+			<version>${lombok.version}</version>
+			<scope>provided</scope>
 		</dependency>
 	</dependencies>
 
