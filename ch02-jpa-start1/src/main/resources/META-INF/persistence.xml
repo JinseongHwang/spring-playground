@@ -1,22 +1,31 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!-- JPA 설정 파일의 이름과 버전 정보 -->
 <persistence xmlns="http://xmlns.jcp.org/xml/ns/persistence" version="2.1">
 
+    <!-- 영속성 유닛(persistence-unit)은 데이터베이스당 하나씩 필요하다. 영속성 유닛의 고유한 이름을 작성 -->
     <persistence-unit name="jpabook">
 
         <properties>
 
             <!-- 필수 속성 -->
-            <property name="javax.persistence.jdbc.driver" value="org.h2.Driver"/>
-            <property name="javax.persistence.jdbc.user" value="sa"/>
-            <property name="javax.persistence.jdbc.password" value=""/>
-            <property name="javax.persistence.jdbc.url" value="jdbc:h2:tcp://localhost/~/test"/>
-            <property name="hibernate.dialect" value="org.hibernate.dialect.H2Dialect" />
+            <property name="javax.persistence.jdbc.driver" value="org.h2.Driver"/><!-- JDBC 드라이버 -->
+            <property name="javax.persistence.jdbc.user" value="sa"/><!-- 데이터베이스 접속 ID -->
+            <property name="javax.persistence.jdbc.password" value=""/><!-- 데이터베이스 접속 PW -->
+            <property name="javax.persistence.jdbc.url" value="jdbc:h2:tcp://localhost/~/test"/><!-- 데이터베이스 접속 경로 -->
+            <property name="hibernate.dialect" value="org.hibernate.dialect.H2Dialect" /><!--
+                [hibernate DB dialect 설정]
+                - 데이터베이스는 종류 별로 문법이 조금씩 다르다.
+                - 애플리케이션 코드를 변경하지 않고 종류 별 DB가 호환 가능하도록 하는 것이 Dialect이다.
+                <H2> org.hibernate.dialect.H2Dialect
+                <MySQL> org.hibernate.dialect.MySQL5InnoDBDialect
+                <Oracle> org.hibernate.dialect.Oracle10gDialect
+                -->
 
             <!-- 옵션 -->
-            <property name="hibernate.show_sql" value="true" />
-            <property name="hibernate.format_sql" value="true" />
-            <property name="hibernate.use_sql_comments" value="true" />
-            <property name="hibernate.id.new_generator_mappings" value="true" />
+            <property name="hibernate.show_sql" value="true" /><!-- hibernate가 실행한 SQL을 출력한다. -->
+            <property name="hibernate.format_sql" value="true" /><!-- hibernate가 실행한 SQL을 보기 좋게 정렬한다. -->
+            <property name="hibernate.use_sql_comments" value="true" /><!-- 쿼리를 출력할 때 주석도 함께 출력한다. -->
+            <property name="hibernate.id.new_generator_mappings" value="true" /><!-- JPA 표준에 맞게 새로운 키 생성 전략을 사용한다. -->
 
             <!--<property name="hibernate.hbm2ddl.auto" value="create" />-->
         </properties>
