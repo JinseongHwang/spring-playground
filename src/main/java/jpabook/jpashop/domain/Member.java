@@ -21,5 +21,5 @@ public class Member {
     private Address address;
 
     @OneToMany(mappedBy = "member") // order 테이블의 member 에 의해 매핑됨을 명시
-   private List<Order> orders = new ArrayList<>();
+    private List<Order> orders = new ArrayList<>();
 }
