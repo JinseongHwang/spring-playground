@@ -47,8 +47,6 @@ body {
 .jumbotron {
     text-align: center;
     border-bottom: 1px solid #e5e5e5;
-    padding: 50px;
-    background-color: #d0e3e3;
 }
 
 .jumbotron .btn {
