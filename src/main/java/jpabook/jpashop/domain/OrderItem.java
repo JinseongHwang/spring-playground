@@ -1,7 +1,9 @@
 package jpabook.jpashop.domain;
 
 import jpabook.jpashop.domain.item.Item;
+import lombok.AccessLevel;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.aspectj.weaver.ast.Or;
 
@@ -11,6 +13,7 @@ import static javax.persistence.FetchType.*;
 
 @Entity
 @Getter @Setter
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class OrderItem {
 
     @Id @GeneratedValue
@@ -27,6 +30,12 @@ public class OrderItem {
 
     private int orderPrice; // 주문 가격
     private int count; // 주문 수량
+
+    // 아래에 createOrderItem 메서드가 있기 때문에 생성자를 통한 생성은 못하게 막아야 한다.
+    // JPA 에서는 public 과 protected 만 허용하기 때문에 비교적 안전한 protected 로 제한한다.
+    // Lombok 으로 대체 가능하기 때문에 Lombok 을 사용한다.
+    //    protected OrderItem() {
+    //    }
 
     // === 생성 메서드 === //
     public static OrderItem createOrderItem(Item item, int orderPrice, int count) {
