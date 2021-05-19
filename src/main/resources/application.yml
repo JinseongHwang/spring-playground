@@ -12,6 +12,9 @@ spring:
       hibernate:
         # show_sql: true # JPA가 생성하는 쿼리를 console에 출력한다.
         format_sql: true # JPA가 생성하는 쿼리를 보기 좋게 포맷팅한다.
+  thymeleaf:
+    prefix: classpath:/templates/
+    suffix: .html
 
 logging: # 로깅에 대한 설정이다.
   level:
