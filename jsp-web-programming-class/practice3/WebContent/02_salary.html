@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>직급 선택</title>
+</head>
+<body>
+	<form method="post" action="02_salary.jsp">
+		이름: <input type="text" name="name"/><br/>
+		직급: <select name="pos">
+				<!-- option태그 열고닫기 사이에 있는 데이터는 화면에도 나오는 동시에 전송도 가능하다. -->
+				<option>사원</option>
+				<option>대리</option>
+				<option>팀장</option>
+				<option>임원</option>
+				<option>회장</option>
+				<option>동아대?</option>
+			</select><p>
+		<input type="submit" value="확인"/> &nbsp;
+		<input type="reset" value="초기화"/>
+	</form>
+</body>
+</html>

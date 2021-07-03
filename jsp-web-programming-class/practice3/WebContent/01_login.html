@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>보내는쪽</title>
+</head>
+<body>
+	<form method="post" action="01_login.jsp">
+		<!-- name 속성값이 전달되는 것이다. name말고 다른 값 넣으면 전달 안된다. -->
+		<!-- 큰 따옴표로 감싸주지 않아도 전달이 되긴 한데, 그냥 감싸주자. -->
+		아이디: <input type="text" name="id"/><br/>
+		비밀번호: <input type="password" name="pw"/><br/>
+		
+		<!-- submit과 reset 역시 form 태그 안에 있어야 action이 된다!! -->
+		<input type="submit" value="확인"/> &nbsp;
+		<input type="reset" value="취소"/>
+	</form>
+</body>
+</html>
