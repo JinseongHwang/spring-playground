@@ -2,6 +2,9 @@ spring:
   profiles:
     active: local
 
+# job.name이 있으면 job.name값을 할당하고, 없으면 NONE을 할당
+spring.batch.job.names: ${job.name:NONE}
+
 ---
 spring:
   profiles: local
