@@ -5,12 +5,14 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.web.authentication.AuthenticationFailureHandler;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.security.web.authentication.logout.LogoutHandler;
@@ -19,6 +21,9 @@ import org.springframework.security.web.authentication.logout.LogoutSuccessHandl
 @Configuration
 @EnableWebSecurity // 보안 관련 여러 클래스들을 import 해서 실행하는 어노테이션
 public class SecurityConfig extends WebSecurityConfigurerAdapter { // 상속 필수
+
+    @Autowired
+    UserDetailsService userDetailsService;
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
@@ -74,5 +79,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter { // 상속 필
                     httpServletResponse.sendRedirect("/login"); // 로그인 화면으로 리다이렉트
                 }
             });
+
+        http
+            .rememberMe() // Remember-Me 기능
+            .rememberMeParameter("remember") // 기본 파라미터 명
+            .tokenValiditySeconds(3600) // sec, Default = 14days
+            .alwaysRemember(false) // 사용자 의견과 상관 없이 Remember me 기능 활성화
+            .userDetailsService(userDetailsService);
     }
 }
