@@ -10,6 +10,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -66,14 +67,16 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter { // 상속 필
             .deleteCookies("JSESSIONID", "remember-me") // 로그아웃 후 삭제할 쿠키 이름들
             .addLogoutHandler(new LogoutHandler() { // 로그아웃 핸들러
                 @Override
-                public void logout(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Authentication authentication) {
+                public void logout(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse,
+                    Authentication authentication) {
                     HttpSession session = httpServletRequest.getSession();
                     session.invalidate(); // 세션 무효화
                 }
             })
             .logoutSuccessHandler(new LogoutSuccessHandler() { // 로그아웃 성공 후 핸들러
                 @Override
-                public void onLogoutSuccess(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Authentication authentication)
+                public void onLogoutSuccess(HttpServletRequest httpServletRequest,
+                    HttpServletResponse httpServletResponse, Authentication authentication)
                     throws IOException, ServletException {
                     // 위에서 .logoutSuccessUrl() 를 작성해줬기 때문에 의미 없음
                     httpServletResponse.sendRedirect("/login"); // 로그인 화면으로 리다이렉트
@@ -86,5 +89,15 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter { // 상속 필
             .tokenValiditySeconds(3600) // sec, Default = 14days
             .alwaysRemember(false) // 사용자 의견과 상관 없이 Remember me 기능 활성화
             .userDetailsService(userDetailsService);
+
+        http
+            .sessionManagement() // 세션 관리 기능 동작
+            .sessionCreationPolicy(SessionCreationPolicy.IF_REQUIRED) // 세션 정책
+            .invalidSessionUrl("/invalid") // 세션이 유효하지 않을 때 이동 할 페이지
+            .maximumSessions(1) // 최대 허용 가능 세션 수, -1: 무제한 로그인 세션 허용
+            .expiredUrl("/expired") // 세션이 만료된 경우 이동 할 페이지
+            .maxSessionsPreventsLogin(true) // 동시 로그인 차단함, false: 기존 세션 만료 정책(default)
+            .and()
+            .sessionFixation().changeSessionId(); // 세션 고정 보호 방법
     }
 }
