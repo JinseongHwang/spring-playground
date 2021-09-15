@@ -99,5 +99,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter { // 상속 필
             .maxSessionsPreventsLogin(true) // 동시 로그인 차단함, false: 기존 세션 만료 정책(default)
             .and()
             .sessionFixation().changeSessionId(); // 세션 고정 보호 방법
+
+        http.csrf();
     }
 }
