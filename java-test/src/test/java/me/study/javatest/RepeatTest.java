@@ -2,6 +2,7 @@ package me.study.javatest;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+import me.study.javatest.domain.Study;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.RepeatedTest;
 import org.junit.jupiter.api.RepetitionInfo;
