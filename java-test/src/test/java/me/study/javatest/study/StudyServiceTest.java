@@ -14,6 +14,7 @@ import static org.mockito.Mockito.when;
 import java.util.Optional;
 import me.study.javatest.domain.Member;
 import me.study.javatest.domain.Study;
+import me.study.javatest.domain.StudyStatus;
 import me.study.javatest.member.MemberService;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -115,5 +116,21 @@ class StudyServiceTest {
         // (change "verify" to "then")
         then(memberService).should(times(1)).notify(study);
         then(memberService).shouldHaveNoMoreInteractions();
+    }
+
+    @Test
+    void verifyTest() throws Exception {
+        // Given
+        final StudyService studyService = new StudyService(memberService, studyRepository);
+        final Study study = new Study(10, "더 자바, 테스트");
+        given(studyRepository.save(study)).willReturn(study);
+
+        // When
+        studyService.openStudy(study);
+
+        // Then
+        assertEquals(StudyStatus.OPENED, study.getStatus());
+        assertNotNull(study.getOpenedDateTime());
+        then(memberService).should().notify(study);
     }
 }
