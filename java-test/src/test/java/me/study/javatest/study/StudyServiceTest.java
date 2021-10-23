@@ -5,7 +5,10 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.ArgumentMatchers.anyString;
+import static org.mockito.BDDMockito.given;
+import static org.mockito.BDDMockito.then;
 import static org.mockito.Mockito.doThrow;
+import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.when;
 
 import java.util.Optional;
@@ -82,4 +85,35 @@ class StudyServiceTest {
         assertEquals(member.getId(), study.getOwnerId());
     }
 
+    @Test
+    void createNewStudy() throws Exception {
+        // given
+        final StudyService studyService = new StudyService(memberService, studyRepository);
+        final Member member = new Member(1L, "example@email.com");
+        final Study study = new Study(10, "테스트");
+
+//        when(memberService.findById(1L)).thenReturn(Optional.of(member));
+//        when(studyRepository.save(study)).thenReturn(study);
+
+        // (change "when" to "given")
+        given(memberService.findById(1L)).willReturn(Optional.of(member));
+        given(studyRepository.save(study)).willReturn(study);
+
+        // when
+        studyService.createNewStudy(1L, study);
+
+        // then
+        assertNotNull(studyService);
+        assertEquals(member.getId(), study.getOwnerId());
+
+        // verify
+//        verify(memberService, times(1)).notify(study); // memberService.notify(study) 가 1번 호출됨
+//        verify(memberService, never()).notify(member); // memberService.notify(member) 가 호출되지 않음
+//        verify(memberService, never()).validate(any()); // memberService.validate(any()) 가 호출되지 않음
+//        verifyNoMoreInteractions(memberService); // memberService 에서 더 이상의 호출이 발생하지 않는다.
+
+        // (change "verify" to "then")
+        then(memberService).should(times(1)).notify(study);
+        then(memberService).shouldHaveNoMoreInteractions();
+    }
 }
