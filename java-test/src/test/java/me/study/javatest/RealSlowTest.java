@@ -13,14 +13,14 @@ public class RealSlowTest {
     @RegisterExtension
     static FindSlowTestExtension extension = new FindSlowTestExtension(2000L);
 
-    @SlowTest
+//    @SlowTest
     @DisplayName("조금 느린 테스트")
     void littleSlow() throws InterruptedException {
         Thread.sleep(500L);
         System.out.println("이 테스트 조금 느리네..?");
     }
 
-    @SlowTest
+//    @SlowTest
     @DisplayName("완전 느린 테스트")
     void realSlow() throws InterruptedException {
         Thread.sleep(1000L);

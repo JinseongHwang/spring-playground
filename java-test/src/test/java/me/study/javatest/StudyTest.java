@@ -5,7 +5,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTimeout;
-import static org.junit.jupiter.api.Assertions.assertTimeoutPreemptively;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assumptions.assumeTrue;
 import static org.junit.jupiter.api.Assumptions.assumingThat;
@@ -61,10 +60,10 @@ class StudyTest {
 //            Thread.sleep(300); // 100ms 제한인데 300ms를 sleep하면 테스트에 실패한다.
         });
         // 테스트에 실패했다는 것을 알게된 순간 즉시 종료한다. 별도의 쓰레드를 사용하기 때문에 예상치 못한 문제가 생길 수도 있다.
-        assertTimeoutPreemptively(Duration.ofMillis(100), () -> {
-            new Study(321);
-            Thread.sleep(123_456_789);
-        });
+//        assertTimeoutPreemptively(Duration.ofMillis(100), () -> {
+//            new Study(321);
+//            Thread.sleep(123_456_789);
+//        });
     }
 
     @Test

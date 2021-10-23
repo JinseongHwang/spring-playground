@@ -10,6 +10,7 @@ import static org.mockito.Mockito.when;
 
 import java.util.Optional;
 import me.study.javatest.domain.Member;
+import me.study.javatest.domain.Study;
 import me.study.javatest.member.MemberService;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -62,4 +63,23 @@ class StudyServiceTest {
         assertThrows(RuntimeException.class, () -> memberService.findByEmail("BBBB@example.com"));
         assertEquals(Optional.empty(), memberService.findByEmail("CCCC@example.com"));
     }
+
+    @Test
+    void stubbingTest() throws Exception {
+        // given
+        StudyService studyService = new StudyService(memberService, studyRepository);
+        final Study study = new Study(10, "테스트");
+        final Member member = new Member(1L, "jinseong@example.com");
+
+        // when
+        when(memberService.findById(1L)).thenReturn(Optional.of(member));
+        when(studyRepository.save(study)).thenReturn(study);
+
+        studyService.createNewStudy(1L, study);
+
+        // then
+        assertNotNull(study.getOwnerId());
+        assertEquals(member.getId(), study.getOwnerId());
+    }
+
 }
