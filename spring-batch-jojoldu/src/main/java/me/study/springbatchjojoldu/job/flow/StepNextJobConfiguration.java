@@ -1,8 +1,7 @@
-package me.study.springbatchjojoldu.job;
+package me.study.springbatchjojoldu.job.flow;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.batch.core.ExitStatus;
 import org.springframework.batch.core.Job;
 import org.springframework.batch.core.Step;
 import org.springframework.batch.core.configuration.annotation.JobBuilderFactory;
@@ -14,59 +13,45 @@ import org.springframework.context.annotation.Configuration;
 @Slf4j
 @Configuration
 @RequiredArgsConstructor
-public class StepNextConditionalJobConfiguration {
+public class StepNextJobConfiguration {
 
     private final JobBuilderFactory jobBuilderFactory;
     private final StepBuilderFactory stepBuilderFactory;
 
     @Bean
-    public Job stepNextConditionalJob() {
-        return jobBuilderFactory.get("stepNextConditionalJob")
-            .start(conditionalJobStep1())
-                .on("FAILED")
-                .to(conditionalJobStep3())
-                .on("*")
-                .end()
-            .from(conditionalJobStep1())
-                .on("*")
-                .to(conditionalJobStep2())
-                .next(conditionalJobStep3())
-                .on("*")
-                .end()
-            .end()
+    public Job stepNextJob() {
+        return jobBuilderFactory.get("stepNextJob")
+            .start(step1())
+            .next(step2())
+            .next(step3())
             .build();
     }
 
     @Bean
-    public Step conditionalJobStep1() {
+    public Step step1() {
         return stepBuilderFactory.get("step1")
             .tasklet((contribution, chunkContext) -> {
-                log.info(">>> This is stepNextConditionalJob Step1");
-                /**
-                 * ExitStatus를 FAILED로 지정한다.
-                 * 해당 status를 보고 flow가 진행된다.
-                 */
-//                contribution.setExitStatus(ExitStatus.FAILED);
+                log.info(">>> This is Step 1");
                 return RepeatStatus.FINISHED;
             })
             .build();
     }
 
     @Bean
-    public Step conditionalJobStep2() {
+    public Step step2() {
         return stepBuilderFactory.get("step2")
             .tasklet((contribution, chunkContext) -> {
-                log.info(">>> This is stepNextConditionalJob Step2");
+                log.info(">>> This is Step 2");
                 return RepeatStatus.FINISHED;
             })
             .build();
     }
 
     @Bean
-    public Step conditionalJobStep3() {
+    public Step step3() {
         return stepBuilderFactory.get("step3")
             .tasklet((contribution, chunkContext) -> {
-                log.info(">>> This is stepNextConditionalJob Step3");
+                log.info(">>> This is Step 3");
                 return RepeatStatus.FINISHED;
             })
             .build();
