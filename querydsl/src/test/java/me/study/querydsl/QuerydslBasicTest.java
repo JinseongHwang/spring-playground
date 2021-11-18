@@ -1,7 +1,7 @@
 package me.study.querydsl;
 
 import static me.study.querydsl.entity.QMember.member;
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.*;
 
 import com.querydsl.core.QueryResults;
 import com.querydsl.jpa.impl.JPAQueryFactory;
@@ -124,5 +124,31 @@ public class QuerydslBasicTest {
         final List<Member> results = fetchResults.getResults();
         assertEquals(4, total);
         assertEquals(4, results.size());
+    }
+
+    /**
+     * 회원 정렬 순서
+     * 1. 회원 나이 내림차순(DESC)
+     * 2. 회원 이름 오름차순(ASC)
+     * 단, 2에서 회원 이름이 null 이면 마지막에 포함(nulls last)
+     */
+    @Test
+    void sort() throws Exception {
+        em.persist(new Member(null, 100));
+        em.persist(new Member("member5", 100));
+        em.persist(new Member("member6", 100));
+
+        final List<Member> result = queryFactory
+            .selectFrom(member)
+            .where(member.age.eq(100)) // age = 100
+            .orderBy(member.age.desc(), member.username.asc().nullsLast()) // 나이 내림차순 -> 이름 오름차순(null 은 마지막에)
+            .fetch();
+
+        final Member member5 = result.get(0);
+        final Member member6 = result.get(1);
+        final Member memberNull = result.get(2);
+        assertEquals("member5", member5.getUsername());
+        assertEquals("member6", member6.getUsername());
+        assertNull(memberNull.getUsername());
     }
 }
