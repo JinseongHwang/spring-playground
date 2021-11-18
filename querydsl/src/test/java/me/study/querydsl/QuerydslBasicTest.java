@@ -151,4 +151,29 @@ public class QuerydslBasicTest {
         assertEquals("member6", member6.getUsername());
         assertNull(memberNull.getUsername());
     }
+
+    @Test
+    void paging1() throws Exception {
+        final List<Member> result = queryFactory
+            .selectFrom(member)
+            .orderBy(member.username.desc())
+            .offset(0)
+            .limit(2)
+            .fetch();
+        assertEquals(2, result.size());
+    }
+
+    @Test
+    void paging2() throws Exception {
+        final QueryResults<Member> queryResults = queryFactory
+            .selectFrom(member)
+            .orderBy(member.username.desc())
+            .offset(1)
+            .limit(2)
+            .fetchResults();
+        assertEquals(4, queryResults.getTotal());
+        assertEquals(2, queryResults.getLimit());
+        assertEquals(1, queryResults.getOffset());
+        assertEquals(2, queryResults.getResults().size());
+    }
 }
