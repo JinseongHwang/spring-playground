@@ -1,7 +1,5 @@
 package me.study.querydsl.entity;
 
-import static org.junit.jupiter.api.Assertions.*;
-
 import java.util.List;
 import javax.persistence.EntityManager;
 import org.junit.jupiter.api.DisplayName;
@@ -30,7 +28,6 @@ class MemberTest {
         Member member3 = new Member("member3", 10, teamB);
         Member member4 = new Member("member4", 10, teamB);
 
-
         // when
         em.persist(teamA);
         em.persist(teamB);
@@ -49,7 +46,7 @@ class MemberTest {
         // then
         for (Member member : members) {
             System.out.print("member = " + member);
-            System.out.println(" // member team = " + member.getTeam());
+            System.out.println(" / member team = " + member.getTeam());
         }
     }
 }
