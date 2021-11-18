@@ -3,7 +3,9 @@ package me.study.querydsl;
 import static me.study.querydsl.entity.QMember.member;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+import com.querydsl.core.QueryResults;
 import com.querydsl.jpa.impl.JPAQueryFactory;
+import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import me.study.querydsl.entity.Member;
@@ -61,5 +63,66 @@ public class QuerydslBasicTest {
             .where(member.username.eq("member1"))
             .fetchOne();
         assertEquals("member1", findMember.getUsername());
+    }
+
+    @Test
+    void search() throws Exception {
+        final Member findMember = queryFactory
+            .selectFrom(member) // select + from
+            .where(member.username.eq("member1")
+                .and(member.age.between(10, 30)))
+            .fetchOne();
+        assertEquals("member1", findMember.getUsername());
+    }
+
+    @Test
+    void searchAndParam() throws Exception {
+        final Member findMember = queryFactory
+            .selectFrom(member) // select + from
+            .where( // and 는 comma로 묶을 수 있다.
+                member.username.eq("member1"),
+                member.age.eq(10)
+            )
+            .fetchOne();
+        assertEquals("member1", findMember.getUsername());
+    }
+
+    @Test
+    void resultFetch() throws Exception {
+        /**
+         * fetch : 리스트 반환, 데이터 없으면 빈 리스트 반환
+         */
+        final List<Member> fetch = queryFactory
+            .selectFrom(member)
+            .fetch();
+
+        /**
+         * fetchOne: 단건 조회
+         * 결과 없으면 null
+         * 결과가 둘 이상이면 throw NonUniqueResultException
+         */
+        final Member fetchOne = queryFactory
+            .selectFrom(member)
+            .fetchOne();
+
+        /**
+         * fetchFirst == limit(1).fetchOne();
+         */
+        final Member fetchFirst = queryFactory
+            .selectFrom(member)
+            .fetchFirst();
+
+        /**
+         * fetchResults 는 조회 쿼리가 2번 실행된다.
+         * 1. 전체 데이터 count 쿼리
+         * 2. Member 조회 쿼리
+         */
+        final QueryResults<Member> fetchResults = queryFactory
+            .selectFrom(member)
+            .fetchResults();
+        final long total = fetchResults.getTotal();
+        final List<Member> results = fetchResults.getResults();
+        assertEquals(4, total);
+        assertEquals(4, results.size());
     }
 }
