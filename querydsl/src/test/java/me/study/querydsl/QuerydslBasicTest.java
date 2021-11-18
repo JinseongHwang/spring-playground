@@ -1,9 +1,12 @@
 package me.study.querydsl;
 
 import static me.study.querydsl.entity.QMember.member;
-import static org.junit.jupiter.api.Assertions.*;
+import static me.study.querydsl.entity.QTeam.team;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
 
 import com.querydsl.core.QueryResults;
+import com.querydsl.core.Tuple;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import java.util.List;
 import javax.persistence.EntityManager;
@@ -175,5 +178,44 @@ public class QuerydslBasicTest {
         assertEquals(2, queryResults.getLimit());
         assertEquals(1, queryResults.getOffset());
         assertEquals(2, queryResults.getResults().size());
+    }
+
+    @Test
+    void aggregation() throws Exception {
+        final List<Tuple> result = queryFactory
+            .select(
+                member.count(),
+                member.age.sum(),
+                member.age.avg(),
+                member.age.max(),
+                member.age.min()
+            )
+            .from(member)
+            .fetch();
+        final Tuple tuple = result.get(0);
+        assertEquals(4, tuple.get(member.count()));
+        assertEquals(40, tuple.get(member.age.sum()));
+        assertEquals(10, tuple.get(member.age.avg()));
+        assertEquals(10, tuple.get(member.age.max()));
+        assertEquals(10, tuple.get(member.age.min()));
+    }
+
+    /**
+     * 팀의 이름과 각 팀의 평균 연령을 구하라
+     */
+    @Test
+    void group() throws Exception {
+        final List<Tuple> result = queryFactory
+            .select(team.name, member.age.avg())
+            .from(member)
+            .join(member.team, team)
+            .groupBy(team.name)
+            .fetch();
+        final Tuple teamA = result.get(0);
+        final Tuple teamB = result.get(1);
+        assertEquals("teamA", teamA.get(team.name));
+        assertEquals(10, teamA.get(member.age.avg()));
+        assertEquals("teamB", teamB.get(team.name));
+        assertEquals(10, teamB.get(member.age.avg()));
     }
 }
