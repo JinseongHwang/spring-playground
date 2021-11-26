@@ -13,7 +13,9 @@ import com.querydsl.core.Tuple;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import java.util.List;
 import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
 import javax.persistence.PersistenceContext;
+import javax.persistence.PersistenceUnit;
 import me.study.querydsl.entity.Drink;
 import me.study.querydsl.entity.Member;
 import me.study.querydsl.entity.Team;
@@ -330,5 +332,37 @@ public class QuerydslBasicTest {
         for (Tuple tuple : result) {
             System.out.println("tuple = " + tuple);
         }
+    }
+
+    @PersistenceUnit
+    EntityManagerFactory emf;
+
+    @Test
+    void fetchJoinNo() {
+        em.flush();
+        em.clear();
+
+        final Member findMember = queryFactory
+            .selectFrom(member)
+            .where(member.username.eq("member1"))
+            .fetchOne();
+
+        assertThat(emf.getPersistenceUnitUtil().isLoaded(findMember.getTeam()))
+            .isFalse();
+    }
+
+    @Test
+    void fetchJoinYes() {
+        em.flush();
+        em.clear();
+
+        final Member findMember = queryFactory
+            .selectFrom(member)
+            .join(member.team, team).fetchJoin()
+            .where(member.username.eq("member1"))
+            .fetchOne();
+
+        assertThat(emf.getPersistenceUnitUtil().isLoaded(findMember.getTeam()))
+            .isTrue();
     }
 }
