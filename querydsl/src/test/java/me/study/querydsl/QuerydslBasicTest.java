@@ -1,5 +1,6 @@
 package me.study.querydsl;
 
+import static com.querydsl.jpa.JPAExpressions.select;
 import static me.study.querydsl.entity.QMember.member;
 import static me.study.querydsl.entity.QTeam.team;
 import static org.assertj.core.api.Assertions.assertThat;
@@ -18,8 +19,10 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.PersistenceUnit;
 import me.study.querydsl.entity.Drink;
 import me.study.querydsl.entity.Member;
+import me.study.querydsl.entity.QMember;
 import me.study.querydsl.entity.Team;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.annotation.Commit;
@@ -65,6 +68,7 @@ public class QuerydslBasicTest {
         em.persist(drink3);
     }
 
+    @Disabled
     @Test
     @Commit
     void initOnly() {
@@ -156,10 +160,7 @@ public class QuerydslBasicTest {
     }
 
     /**
-     * 회원 정렬 순서
-     * 1. 회원 나이 내림차순(DESC)
-     * 2. 회원 이름 오름차순(ASC)
-     * 단, 2에서 회원 이름이 null 이면 마지막에 포함(nulls last)
+     * 회원 정렬 순서 1. 회원 나이 내림차순(DESC) 2. 회원 이름 오름차순(ASC) 단, 2에서 회원 이름이 null 이면 마지막에 포함(nulls last)
      */
     @Test
     void sort() throws Exception {
@@ -261,8 +262,7 @@ public class QuerydslBasicTest {
     }
 
     /**
-     * 세타 조인
-     * 회원의 이름이 팀이름과 같은 회원 조회
+     * 세타 조인 회원의 이름이 팀이름과 같은 회원 조회
      */
     @Test
     void thetaJoin() throws Exception {
@@ -281,11 +281,7 @@ public class QuerydslBasicTest {
     }
 
     /**
-     * 회원과 팀을 조인하면서, 팀 이름이 teamA인 팀만 조인, 회원은 모두 조회
-     * JPQL: select m, t
-     *      from Member m
-     *      left join m.team t
-     *          on t.name='teamA';
+     * 회원과 팀을 조인하면서, 팀 이름이 teamA인 팀만 조인, 회원은 모두 조회 JPQL: select m, t from Member m left join m.team t on t.name='teamA';
      */
     @Test
     void joinOnFiltering() throws Exception {
@@ -315,8 +311,7 @@ public class QuerydslBasicTest {
     }
 
     /**
-     * 연관 관계가 없는 엔티티 외부 조인
-     * 회원의 이름이 팀이름과 같은 대상 외부 조인
+     * 연관 관계가 없는 엔티티 외부 조인 회원의 이름이 팀이름과 같은 대상 외부 조인
      */
     @Test
     void joinOnNoRelation() throws Exception {
@@ -364,5 +359,84 @@ public class QuerydslBasicTest {
 
         assertThat(emf.getPersistenceUnitUtil().isLoaded(findMember.getTeam()))
             .isTrue();
+    }
+
+    /**
+     * 나이가 가장 많은 회원 조회
+     */
+    @Test
+    void subQuery() throws Exception {
+        final QMember memberSub = new QMember("memberSub");
+
+        final List<Member> result = queryFactory
+            .selectFrom(member)
+            .where(member.age.eq(
+                select(memberSub.age.max())
+                    .from(memberSub)
+            ))
+            .fetch();
+
+        assertThat(result).extracting("age")
+            .containsExactly(40);
+    }
+
+    /**
+     * 나이가 평균 이상인 회원 조회
+     */
+    @Test
+    void subQueryGoe() throws Exception {
+        final QMember memberSub = new QMember("memberSub");
+
+        final List<Member> result = queryFactory
+            .selectFrom(member)
+            .where(member.age.goe(
+                select(memberSub.age.avg())
+                    .from(memberSub)
+            ))
+            .fetch();
+
+        assertThat(result).extracting("age")
+            .containsExactly(30, 40);
+    }
+
+    /**
+     * IN 연습
+     */
+    @Test
+    void subQueryIn() throws Exception {
+        final QMember memberSub = new QMember("memberSub");
+
+        final List<Member> result = queryFactory
+            .selectFrom(member)
+            .where(member.age.in(
+                select(memberSub.age)
+                    .from(memberSub)
+                    .where(memberSub.age.gt(10))
+            ))
+            .fetch();
+
+        assertThat(result).extracting("age")
+            .containsExactly(20, 30, 40);
+    }
+
+    /**
+     * IN 연습
+     */
+    @Test
+    void selectSubQuery() throws Exception {
+        final QMember memberSub = new QMember("memberSub");
+
+        final List<Tuple> result = queryFactory
+            .select(
+                member.username,
+                select(memberSub.age.avg())
+                    .from(memberSub)
+            )
+            .from(member)
+            .fetch();
+
+        for (Tuple tuple : result) {
+            System.out.println("tuple = " + tuple);
+        }
     }
 }
