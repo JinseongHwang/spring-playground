@@ -12,6 +12,7 @@ import com.querydsl.core.NonUniqueResultException;
 import com.querydsl.core.QueryResults;
 import com.querydsl.core.Tuple;
 import com.querydsl.core.types.dsl.CaseBuilder;
+import com.querydsl.core.types.dsl.Expressions;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import java.util.List;
 import javax.persistence.EntityManager;
@@ -476,6 +477,37 @@ public class QuerydslBasicTest {
 
         for (String res : result) {
             System.out.println("res = " + res);
+        }
+    }
+
+    /**
+     * 상수 표현
+     */
+    @Test
+    void constant() throws Exception {
+        final List<Tuple> result = queryFactory
+            .select(member.username, Expressions.constant("A"))
+            .from(member)
+            .fetch();
+
+        for (Tuple tuple : result) {
+            System.out.println("tuple = " + tuple);
+        }
+    }
+
+    /**
+     * 문자 더하기
+     */
+    @Test
+    void concat() throws Exception {
+        final List<String> result = queryFactory
+            .select(member.username.concat("_").concat(member.age.stringValue())) // 타입 캐스팅
+            .from(member)
+            .where(member.username.eq("member1"))
+            .fetch();
+
+        for (String s : result) {
+            System.out.println("s = " + s);
         }
     }
 }
