@@ -8,6 +8,7 @@ import com.querydsl.core.Tuple;
 import com.querydsl.core.types.ExpressionUtils;
 import com.querydsl.core.types.Projections;
 import com.querydsl.core.types.dsl.BooleanExpression;
+import com.querydsl.core.types.dsl.Expressions;
 import com.querydsl.jpa.JPAExpressions;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import java.util.List;
@@ -195,8 +196,7 @@ public class QuerydslIntermediateTest {
     }
 
     /**
-     * 파라미터 바인딩 대상이 null 이냐 null 이 아니냐에 따라 동적 쿼리를 작성하는 방법
-     * -> BooleanBuilder 를 사용하는 방법
+     * 파라미터 바인딩 대상이 null 이냐 null 이 아니냐에 따라 동적 쿼리를 작성하는 방법 -> BooleanBuilder 를 사용하는 방법
      */
     @Test
     void dynamicQueryBooleanBuilder() throws Exception {
@@ -225,8 +225,7 @@ public class QuerydslIntermediateTest {
     }
 
     /**
-     * 파라미터 바인딩 대상이 null 이냐 null 이 아니냐에 따라 동적 쿼리를 작성하는 방법
-     * -> Where Parameter 를 사용하는 방법
+     * 파라미터 바인딩 대상이 null 이냐 null 이 아니냐에 따라 동적 쿼리를 작성하는 방법 -> Where Parameter 를 사용하는 방법
      */
     @Test
     void dynamicQueryWhereParam() throws Exception {
@@ -345,6 +344,37 @@ public class QuerydslIntermediateTest {
             .fetch();
         for (Member mem : result) {
             System.out.println("mem = " + mem);
+        }
+    }
+
+    @Test
+    void sqlFunction() throws Exception {
+        final List<String> result = queryFactory
+            .select(Expressions.stringTemplate(
+                "function('replace', {0}, {1}, {2})",
+                member.username, "member", "M"
+            ))
+            .from(member)
+            .fetch();
+        for (String s : result) {
+            System.out.println("s = " + s);
+        }
+    }
+
+    @Test
+    void sqlFunction2() throws Exception {
+        final List<String> result = queryFactory
+            .select(member.username)
+            .from(member)
+//            .where(member.username.eq(Expressions.stringTemplate(
+//                "function('lower', {0})",
+//                member.username
+//            )))
+            .where(member.username.eq(member.username.lower()))
+            .fetch();
+
+        for (String s : result) {
+            System.out.println("s = " + s);
         }
     }
 }
