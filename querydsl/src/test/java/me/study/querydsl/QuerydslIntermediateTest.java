@@ -293,16 +293,54 @@ public class QuerydslIntermediateTest {
          * DB에 select 쿼리가 날아간다.
          * DB에서 가져온 값을 영속성 컨텍스트 1차 캐시에 집어 넣으려고 하는데...
          * PK 가 겹치는 값이 이미 존재한다. 그러면 영속성 컨텍스트가 우선권을 가진다. DB에서 가져온 데이터는 버린다.
+         * Transaction isolation level 2 : Repeatable read
          * << PK -> DB -> Persistence Context >>
          * 1 -> 비회원 -> member1
          * 2 -> 비회원 -> member2
          * 3 -> member3 -> member3
          * 4 -> member4 -> member4
          */
+        /**
+         * SQL 저장소의 남은 쿼리를 모두 실행해주고,
+         * 영속성 컨텍스트를 비워주면 이 문제를 해결할 수 있다.
+         */
         em.flush();
         em.clear();
 
         result = queryFactory
+            .selectFrom(member)
+            .fetch();
+        for (Member mem : result) {
+            System.out.println("mem = " + mem);
+        }
+    }
+
+    @Test
+    void bulkAdd() throws Exception {
+        final long count = queryFactory
+            .update(member)
+            .set(member.age, member.age.add(1))
+            .execute();
+
+        em.flush();
+        em.clear();
+
+        final List<Member> result = queryFactory
+            .selectFrom(member)
+            .fetch();
+        for (Member mem : result) {
+            System.out.println("mem = " + mem);
+        }
+    }
+
+    @Test
+    void bulkDelete() throws Exception {
+        final long count = queryFactory
+            .delete(member)
+            .where(member.age.gt(18))
+            .execute();
+
+        final List<Member> result = queryFactory
             .selectFrom(member)
             .fetch();
         for (Member mem : result) {
