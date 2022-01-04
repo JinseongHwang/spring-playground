@@ -1,11 +1,20 @@
 package me.study.springsecuritycos1.controller;
 
+import lombok.RequiredArgsConstructor;
+import me.study.springsecuritycos1.model.User;
+import me.study.springsecuritycos1.repository.UserRepository;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+@RequiredArgsConstructor
 @Controller
 public class IndexController {
+
+    private final UserRepository userRepository;
+    private final BCryptPasswordEncoder encoder;
 
     @GetMapping({"", "/"})
     public String index() {
@@ -30,21 +39,27 @@ public class IndexController {
         return "manager";
     }
 
-    @ResponseBody
-    @GetMapping("/login") // 스프링 시큐리티가 가로챔
-    public String login() {
-        return "login";
+    @GetMapping("/loginForm") // 스프링 시큐리티가 가로챔 - SecurityConfig 생성 이후 무효화
+    public String loginForm() {
+        return "loginForm";
     }
 
-    @ResponseBody
-    @GetMapping("/join")
-    public String join() {
-        return "join";
+    @GetMapping("/joinForm")
+    public String joinForm() {
+        return "joinForm";
     }
 
-    @ResponseBody
-    @GetMapping("/joinProc")
-    public String joinProc() {
-        return "회원가입 완료됨!";
+    @PostMapping("/join")
+    public String join(User user) {
+        user.setRole("ROLE_USER");
+
+        final String rawPassword = user.getPassword();
+        final String encPassword = encoder.encode(rawPassword);
+        user.setPassword(encPassword);
+
+        final User savedUser = userRepository.save(user);
+        System.out.println("savedUser = " + savedUser);
+
+        return "redirect:/loginForm";
     }
 }
