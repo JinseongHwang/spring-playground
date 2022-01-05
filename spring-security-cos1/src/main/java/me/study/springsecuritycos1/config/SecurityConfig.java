@@ -22,7 +22,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
             .anyRequest().permitAll()
             .and()
             .formLogin()
-            .loginPage("/loginForm");
+            .loginPage("/loginForm")
+            .loginProcessingUrl("/login") // login 주소가 호출되면 시큐리티가 낚아채서 대신 로그인을 진행해준다.
+            .defaultSuccessUrl("/");
     }
 
     // 해당 메서드에서 반환되는 객체를 IoC로 등록
