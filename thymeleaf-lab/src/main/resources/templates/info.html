@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <link th:href="@{/css/bootstrap.min.css}" rel="stylesheet">
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+<body>
+
+<div class="container">
+  <h1 th:text="'name = ' + ${res.getName()}"></h1>
+  <h1 th:text="'email = ' + ${res.getEmail()}"></h1>
+  <h1 th:text="'address = ' + ${res.getAddress()}"></h1>
+
+  <h1 th:text="'address.addr1 = ' + ${res.getAddress().getAddr1()}"></h1>
+  <h1 th:text="'address.addr2 = ' + ${res.getAddress().getAddr2()}"></h1>
+</div>
+
+
+</body>
+</html>
