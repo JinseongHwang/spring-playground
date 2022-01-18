@@ -8,7 +8,7 @@ import lombok.Getter;
 
 @AllArgsConstructor
 @Getter
-@Builder
+//@Builder
 @EqualsAndHashCode
 public class OrderEntity {
 

@@ -1,14 +1,13 @@
 package me.study.mapstruct.mapper;
 
+import java.time.LocalDateTime;
 import javax.annotation.processing.Generated;
 import me.study.mapstruct.model.OrderDto;
-import me.study.mapstruct.model.OrderDto.OrderDtoBuilder;
 import me.study.mapstruct.model.OrderEntity;
-import me.study.mapstruct.model.OrderEntity.OrderEntityBuilder;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2022-01-18T17:47:20+0900",
+    date = "2022-01-18T18:01:16+0900",
     comments = "version: 1.4.2.Final, compiler: javac, environment: Java 11.0.12 (Oracle Corporation)"
 )
 public class OrderMapperImpl implements OrderMapper {
@@ -19,17 +18,23 @@ public class OrderMapperImpl implements OrderMapper {
             return null;
         }
 
-        OrderEntityBuilder orderEntity = OrderEntity.builder();
+        String name = null;
+        String product = null;
+        Integer price = null;
+        String address = null;
+        LocalDateTime orderedTime = null;
 
-        orderEntity.name( orderDto.getName() );
-        orderEntity.product( orderDto.getProduct() );
-        orderEntity.price( orderDto.getPrice() );
-        orderEntity.address( orderDto.getAddress() );
-        orderEntity.orderedTime( orderDto.getOrderedTime() );
+        name = orderDto.getName();
+        product = orderDto.getProduct();
+        price = orderDto.getPrice();
+        address = orderDto.getAddress();
+        orderedTime = orderDto.getOrderedTime();
 
-        orderEntity.id( (long) 0L );
+        Long id = (long) 0L;
 
-        return orderEntity.build();
+        OrderEntity orderEntity = new OrderEntity( id, name, product, price, address, orderedTime );
+
+        return orderEntity;
     }
 
     @Override
@@ -38,16 +43,22 @@ public class OrderMapperImpl implements OrderMapper {
             return null;
         }
 
-        OrderDtoBuilder orderDto = OrderDto.builder();
+        String name = null;
+        String product = null;
+        Integer price = null;
+        String address = null;
+        LocalDateTime orderedTime = null;
 
-        orderDto.name( orderEntity.getName() );
-        orderDto.product( orderEntity.getProduct() );
-        orderDto.price( orderEntity.getPrice() );
-        orderDto.address( orderEntity.getAddress() );
-        orderDto.orderedTime( orderEntity.getOrderedTime() );
+        name = orderEntity.getName();
+        product = orderEntity.getProduct();
+        price = orderEntity.getPrice();
+        address = orderEntity.getAddress();
+        orderedTime = orderEntity.getOrderedTime();
 
-        orderDto.img( orderEntity.getProduct() + ".jpg" );
+        String img = orderEntity.getProduct() + ".jpg";
 
-        return orderDto.build();
+        OrderDto orderDto = new OrderDto( name, product, price, address, img, orderedTime );
+
+        return orderDto;
     }
 }

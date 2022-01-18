@@ -16,13 +16,14 @@ public class OrderMapperTest {
     @DisplayName("DTO에서 Entity로 변환하는 테스트")
     void test_dto_to_event() {
         /* given */
-        final OrderDto orderDto = OrderDto.builder()
-            .name("테스트")
-            .product("사탕")
-            .price(1000)
-            .address("Seoul")
-            .orderedTime(LocalDateTime.now())
-            .build();
+//        final OrderDto orderDto = OrderDto.builder()
+//            .name("테스트")
+//            .product("사탕")
+//            .price(1000)
+//            .address("Seoul")
+//            .orderedTime(LocalDateTime.now())
+//            .build();
+        final OrderDto orderDto = new OrderDto("테스트", "사탕", 1000, "Seoul", null, LocalDateTime.now());
         /* when */
         final OrderEntity order = OrderMapper.INSTANCE.orderDtoToEntity(orderDto);
         /* then */

@@ -2,11 +2,10 @@ package me.study.mapstruct.model;
 
 import java.time.LocalDateTime;
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Getter;
 
 @AllArgsConstructor
-@Builder
+//@Builder
 @Getter
 public class OrderDto {
 
