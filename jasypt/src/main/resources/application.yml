@@ -1,1 +1,25 @@
+jasypt:
+  encryptor:
+    bean: jasyptStringEncryptor
 
+spring:
+  datasource:
+    driver-class-name: org.h2.Driver
+    url: ENC(UK05THRTf3QEsMuQjmU0oZ942mwqW4TwfemsRjFZgqr9qaav0BOr7I+GSDHM437bfQqwtCBky8gc8twvHIJ+4A==)
+    username: ENC(2wbIrX94MLxFJ444p4k6Hw==)
+    password:
+#    url: jdbc:h2:tcp://localhost/~/local-db/h2/conn/testdb
+#    username: sa
+#    password:
+  jpa:
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        format_sql: true
+        show_sql: true
+    open-in-view: false
+
+logging:
+  level:
+    org.hibernate.SQL: debug
