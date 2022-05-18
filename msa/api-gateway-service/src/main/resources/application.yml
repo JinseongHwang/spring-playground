@@ -12,7 +12,7 @@ spring:
   application:
     name: api-gateway-service
 
-### ?? ??? Java code? ??? ??
+### 아래 설정을 Java code로 표현
 #  cloud:
 #    gateway:
 #      routes:
