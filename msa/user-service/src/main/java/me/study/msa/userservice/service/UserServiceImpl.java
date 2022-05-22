@@ -7,6 +7,7 @@ import me.study.msa.userservice.jpa.UserEntity;
 import me.study.msa.userservice.jpa.UserRepository;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.convention.MatchingStrategies;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 @RequiredArgsConstructor
@@ -14,6 +15,7 @@ import org.springframework.stereotype.Service;
 public class UserServiceImpl implements UserService {
 
     private final UserRepository userRepository;
+    private final BCryptPasswordEncoder passwordEncoder;
 
     @Override
     public UserDto createUser(UserDto userDto) {
@@ -22,7 +24,7 @@ public class UserServiceImpl implements UserService {
         final ModelMapper mapper = new ModelMapper();
         mapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STRICT);
         final UserEntity userEntity = mapper.map(userDto, UserEntity.class);
-        userEntity.setEncryptedPwd("encrypted_password");
+        userEntity.setEncryptedPwd(passwordEncoder.encode(userDto.getPwd()));
 
         userRepository.save(userEntity);
 
