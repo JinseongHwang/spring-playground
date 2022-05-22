@@ -4,7 +4,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 
-@EnableDiscoveryClient
+@EnableDiscoveryClient // 생략 가능 (autoRegister=true 가 default)
 @SpringBootApplication
 public class UserServiceApplication {
 
