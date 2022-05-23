@@ -1,12 +1,53 @@
 spring:
-  h2:
-    console:
-      enabled: true
-      path: /h2-console
-      settings:
-        web-allow-others: true
+  profiles:
+    active: local
+
+  batch:
+    jdbc:
+      # 배치에 필요한 메타 테이블 생성 시 활용
+      # 운영 환경에서는 never로 설정 후 수동으로 등록하는 것을 권장
+      initialize-schema: always
+
+---
+spring:
+  config:
+    activate:
+      on-profile: h2
+
   datasource:
     driver-class-name: org.h2.Driver
-    url: jdbc:h2:mem:testdb
+    url: jdbc:h2:mem:springbatch;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE
     username: sa
     password:
+
+  jpa:
+    database: h2
+    database-platform: org.hibernate.dialect.H2Dialect
+    generate-ddl: off
+    hibernate:
+      ddl-auto: none
+    properties:
+      hibernate.format_sql: true
+    open-in-view: false
+
+---
+spring:
+  config:
+    activate:
+      on-profile: mysql
+
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3307/springbatch?useUnicode=true&characterEncoding=utf8
+    username: root
+    password: password
+
+  jpa:
+    database: mysql
+    database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
+    generate-ddl: off
+    hibernate:
+      ddl-auto: none
+    properties:
+      hibernate.format_sql: true
+    open-in-view: false
