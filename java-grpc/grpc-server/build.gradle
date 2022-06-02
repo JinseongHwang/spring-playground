@@ -56,13 +56,13 @@ sourceSets {
 
 startScripts.enabled = false
 
-task productInfoService(type: CreateStartScripts) {
+task productInfoServer(type: CreateStartScripts) {
     mainClass = "ecommerce.ProductInfoServer"
-    applicationName = "product-info-service"
+    applicationName = "product-info-server"
     outputDir = new File(project.buildDir, "tmp/scripts/" + name)
     classpath = startScripts.classpath
 }
 
 applicationDistribution.into("bin") {
-    from(productInfoService)
+    from(productInfoServer)
 }
