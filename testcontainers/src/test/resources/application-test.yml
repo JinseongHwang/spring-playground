@@ -1,0 +1,19 @@
+spring:
+  config:
+    activate:
+      on-profile: test
+
+  datasource:
+    url: jdbc:tc:mysql:8:///
+    driver-class-name: org.testcontainers.jdbc.ContainerDatabaseDriver
+
+  jpa:
+    hibernate:
+      ddl-auto: create-drop
+
+logging:
+  level:
+    org:
+      hibernate:
+        SQL: INFO
+    root: INFO
