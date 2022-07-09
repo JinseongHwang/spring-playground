@@ -2,12 +2,10 @@ package me.study.resttemplate.domain.user;
 
 import java.util.ArrayList;
 import java.util.List;
-import lombok.RequiredArgsConstructor;
 import me.study.resttemplate.error.CustomException;
 import org.springframework.stereotype.Service;
 
 @Service
-@RequiredArgsConstructor
 public class UserService {
 
     private static final List<User> users;

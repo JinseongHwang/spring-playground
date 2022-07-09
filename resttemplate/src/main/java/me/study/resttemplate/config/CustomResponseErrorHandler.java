@@ -22,14 +22,14 @@ public class CustomResponseErrorHandler implements ResponseErrorHandler {
 
     @Override
     public void handleError(ClientHttpResponse response) throws IOException {
-        final ObjectMapper objectMapper = new ObjectMapper();
-        final InternalServerErrorVO internalServerErrorVO = objectMapper.readValue(getResponseBody(response), InternalServerErrorVO.class);
+        ObjectMapper objectMapper = new ObjectMapper();
+        InternalServerErrorVO internalServerErrorVO = objectMapper.readValue(getResponseBody(response), InternalServerErrorVO.class);
         if (HttpStatus.INTERNAL_SERVER_ERROR == HttpStatus.valueOf(internalServerErrorVO.getStatus()) &&
             internalServerErrorVO.getError().equals("Internal Server Error")) {
             throw new CustomException();
         }
 
-        final DefaultResponseErrorHandler defaultResponseErrorHandler = new DefaultResponseErrorHandler();
+        DefaultResponseErrorHandler defaultResponseErrorHandler = new DefaultResponseErrorHandler();
         defaultResponseErrorHandler.handleError(response);
     }
 

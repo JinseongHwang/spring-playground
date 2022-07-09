@@ -25,49 +25,70 @@ class UserControllerTest {
     @Autowired
     RestTemplate customRestTemplate;
 
+    private static final int TEST_REPS = 100;
+
     private static final String URI_FORMAT = "http://localhost:%d/users/%d";
-    private static final int SUCCESS_MIN_ID = 1;
-    private static final int SUCCESS_MAX_ID = 5;
+    private static final int MIN_ID = 1; // inclusive
+    private static final int MAX_ID = 6; // exclusive
 
     // --- Using Basic RestTemplate
 
-    @RepeatedTest(10)
+    @RepeatedTest(TEST_REPS)
     void getUser_success_using_basicRestTemplate() {
         // Given
-        int randomId = ThreadLocalRandom.current().nextInt(SUCCESS_MIN_ID, SUCCESS_MAX_ID);
+        int randomId = ThreadLocalRandom.current().nextInt(MIN_ID, MAX_ID);
 
         // When & Then
-        assertDoesNotThrow(() -> basicRestTemplate.getForEntity(String.format(URI_FORMAT, port, randomId), User.class));
+        assertDoesNotThrow(
+            () -> basicRestTemplate.getForEntity(
+                String.format(URI_FORMAT, port, randomId),
+                User.class
+            )
+        );
     }
 
-    @RepeatedTest(10)
+    @RepeatedTest(TEST_REPS)
     void getUser_failure_using_basicRestTemplate() {
         // Given
-        int randomId = ThreadLocalRandom.current().nextInt(SUCCESS_MAX_ID + 1, Integer.MAX_VALUE);
+        int randomId = ThreadLocalRandom.current().nextInt(MAX_ID, Integer.MAX_VALUE);
 
         // When & Then
-        assertThrows(HttpServerErrorException.class,
-                     () -> basicRestTemplate.getForEntity(String.format(URI_FORMAT, port, randomId), User.class));
+        assertThrows(
+            HttpServerErrorException.class,
+            () -> basicRestTemplate.getForEntity(
+                String.format(URI_FORMAT, port, randomId),
+                User.class
+            )
+        );
     }
 
     // --- Using Custom RestTemplate
 
-    @RepeatedTest(10)
+    @RepeatedTest(TEST_REPS)
     void getUser_success_using_customRestTemplate() {
         // Given
-        int randomId = ThreadLocalRandom.current().nextInt(SUCCESS_MIN_ID, SUCCESS_MAX_ID);
+        int randomId = ThreadLocalRandom.current().nextInt(MIN_ID, MAX_ID);
 
         // When & Then
-        assertDoesNotThrow(() -> customRestTemplate.getForEntity(String.format(URI_FORMAT, port, randomId), User.class));
+        assertDoesNotThrow(
+            () -> customRestTemplate.getForEntity(
+                String.format(URI_FORMAT, port, randomId),
+                User.class
+            )
+        );
     }
 
-    @RepeatedTest(10)
+    @RepeatedTest(TEST_REPS)
     void getUser_failure_using_customRestTemplate() {
         // Given
-        int randomId = ThreadLocalRandom.current().nextInt(SUCCESS_MAX_ID + 1, Integer.MAX_VALUE);
+        int randomId = ThreadLocalRandom.current().nextInt(MAX_ID, Integer.MAX_VALUE);
 
         // When & Then
         assertThrows(CustomException.class,
-                     () -> customRestTemplate.getForEntity(String.format(URI_FORMAT, port, randomId), User.class));
+                     () -> customRestTemplate.getForEntity(
+                         String.format(URI_FORMAT, port, randomId),
+                         User.class
+                     )
+        );
     }
 }
