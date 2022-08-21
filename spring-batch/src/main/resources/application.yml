@@ -6,7 +6,9 @@ spring:
     jdbc:
       # 배치에 필요한 메타 테이블 생성 시 활용
       # 운영 환경에서는 never로 설정 후 수동으로 등록하는 것을 권장
-      initialize-schema: always
+      initialize-schema: never
+    job:
+      enabled: false # 자동 실행 하지 않음. 직접 만든 JobRunner를 사용하기 위함
 
 ---
 spring:
