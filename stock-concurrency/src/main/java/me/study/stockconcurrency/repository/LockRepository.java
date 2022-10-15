@@ -11,6 +11,10 @@ import org.springframework.data.repository.query.Param;
  * Namee Lock은 주로 분산 락을 구현할 때 사용한다.
  * Pessimistic Lock은 Time out을 구현하기 까다롭지만, Named Lock은 손쉽게 구현 가능하다.
  * 트랜잭션 종료 시 락이 자동으로 해제되지 않아서, 트랜잭션 종료 시 별도로 반드시 락 해제를 해주거나 선점 시간이 끝나야 해제된다.
+ *
+ * 일반적으로는 트랜잭션을 실행하기 위해 하나의 커넥션만 있으면 되지만,
+ * Named Lock을 사용할 때는 Lock을 위한 커넥션, 트랜잭션에 필요한 커넥션 각 1개씩 필요하기 때문에
+ * 커넥션 풀을 각각 분리하는 것이 좋다.
  */
 public interface LockRepository extends JpaRepository<Stock, Long> {
 
