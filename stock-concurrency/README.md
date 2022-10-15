@@ -1,7 +1,28 @@
 # 테스트 환경
 
 원활한 실행/테스트를 위해 MySQL, Redis 가 컴퓨터에 설치되어 있어야 한다.    
-Docker를 사용 중이라면, 아래 docker-compose.yml 을 실행하면 편하다.   
+Docker를 사용 중이라면, 아래 docker-compose.yml 을 실행하면 편하다.
+
+<br>
+
+## 실행 스크립트
+
+```shell
+touch docker-compose.yml
+vim docker-compose.yml
+# 아래 docker-compose.yml 파일 cmd+c & cmd+v
+# :wq
+
+mkdir mysql && cd mysql
+mkdir conf.d
+mkdir data
+mkdir initdb.d
+
+cd ..
+docker-compose up -d
+```
+
+## docker-compose.yml
 
 ```yaml
 version: "3"
