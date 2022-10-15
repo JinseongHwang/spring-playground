@@ -17,14 +17,17 @@ import org.springframework.boot.test.context.SpringBootTest;
 class StockServiceTest {
 
     @Autowired
-    private StockService stockService;
+    private StockServiceInterface stockService;
+
+    @Autowired
+    private StockServiceInterface pessimisticLockStockService;
 
     @Autowired
     private StockRepository stockRepository;
 
     @BeforeEach
     public void before() {
-        final Stock stock = new Stock(1L, 100L);
+        final Stock stock = new Stock(1L, 1L, 100L);
         stockRepository.saveAndFlush(stock);
     }
 
@@ -37,7 +40,8 @@ class StockServiceTest {
     void stock_decrease() throws Exception {
         stockService.decrease(1L, 1L); // 100 - 1 = 99
 
-        final Stock stock = stockRepository.findById(1L).orElseThrow();
+        final Stock stock = stockRepository.findById(1L)
+                                           .orElseThrow(IllegalArgumentException::new);
         assertThat(stock.getQuantity()).isEqualTo(99L);
     }
 
@@ -63,8 +67,33 @@ class StockServiceTest {
 
         latch.await();
 
+        final Stock stock = stockRepository.findById(1L)
+                                           .orElseThrow(IllegalArgumentException::new);
 
-        final Stock stock = stockRepository.findById(1L).orElseThrow();
+        // 100 - (1 * 100) = 0
+        assertThat(stock.getQuantity()).isNotEqualTo(0L);
+    }
+
+    @Test
+    void 동시에_100개_요청_Pessimistic_Lock_활용() throws Exception {
+        final int threadCount = 100;
+        final ExecutorService executorService = Executors.newFixedThreadPool(32);
+        final CountDownLatch latch = new CountDownLatch(threadCount);
+
+        for (int i = 0; i < threadCount; i++) {
+            executorService.submit(() -> {
+                try {
+                    pessimisticLockStockService.decrease(1L, 1L);
+                } finally {
+                    latch.countDown();
+                }
+            });
+        }
+
+        latch.await();
+
+        final Stock stock = stockRepository.findById(1L)
+                                           .orElseThrow(IllegalArgumentException::new);
 
         // 100 - (1 * 100) = 0
         assertThat(stock.getQuantity()).isEqualTo(0L);
