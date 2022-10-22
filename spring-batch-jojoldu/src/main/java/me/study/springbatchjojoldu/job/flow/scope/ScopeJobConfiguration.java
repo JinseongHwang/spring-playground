@@ -1,4 +1,4 @@
-package me.study.springbatchjojoldu.job.scope;
+package me.study.springbatchjojoldu.job.flow.scope;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
