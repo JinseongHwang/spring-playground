@@ -8,9 +8,15 @@ spring:
     jdbc:
       initialize-schema: always
 
+logging:
+  level:
+    org.springframework.batch: DEBUG
+
 ---
 spring:
-  profiles: local
+  config:
+    activate:
+      on-profile: local
   datasource:
     hikari:
       jdbc-url: jdbc:h2:mem:testdb;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE
@@ -19,7 +25,16 @@ spring:
       driver-class-name: org.h2.Driver
 ---
 spring:
-  profiles: mysql
+  config:
+    activate:
+      on-profile: mysql
+  sql:
+    init:
+      mode: always
+  jpa:
+    defer-datasource-initialization: true
+    hibernate:
+      ddl-auto: create
   datasource:
     hikari:
       jdbc-url: jdbc:mysql://localhost:3306/spring_batch
