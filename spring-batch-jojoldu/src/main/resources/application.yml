@@ -12,6 +12,8 @@ logging:
   level:
     org.springframework.batch: DEBUG
 
+chunkSize: 10
+
 ---
 spring:
   config:
