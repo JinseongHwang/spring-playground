@@ -34,7 +34,7 @@ spring:
   jpa:
     defer-datasource-initialization: true
     hibernate:
-      ddl-auto: create
+      ddl-auto: none
   datasource:
     hikari:
       jdbc-url: jdbc:mysql://localhost:3306/spring_batch
