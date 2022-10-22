@@ -2,6 +2,7 @@ package me.study.springbatch;
 
 import java.sql.Date;
 import java.time.LocalDate;
+import java.time.ZoneId;
 import org.springframework.batch.core.Job;
 import org.springframework.batch.core.JobParameters;
 import org.springframework.batch.core.JobParametersBuilder;
@@ -24,7 +25,9 @@ public class JobRunner implements ApplicationRunner {
     public void run(ApplicationArguments args) throws Exception {
         final JobParameters jobParameters = new JobParametersBuilder()
             .addString("name", "user1")
-            .addDate("now", Date.valueOf(LocalDate.now()))
+            .addLong("seq", 2L)
+            .addDate("now", Date.valueOf(LocalDate.now(ZoneId.of("UTC"))))
+            .addDouble("gpa", 4.6d)
             .toJobParameters();
         jobLauncher.run(job, jobParameters);
     }
