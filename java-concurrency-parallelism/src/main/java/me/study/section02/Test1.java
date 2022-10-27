@@ -11,10 +11,13 @@ public class Test1 {
             }
         });
 
+        thread.setName("New Worker Thread");
+        thread.setPriority(Thread.MAX_PRIORITY);
+
         System.out.println("We are in thread : [" + Thread.currentThread().getName() + "] before starting a new thread"); // 1. main thread
         thread.start();
         System.out.println("We are in thread : [" + Thread.currentThread().getName() + "] after starting a new thread"); // 2. main thread
 
-        Thread.sleep(10_000L); // main thread 반납 후 Thread-0 실행 됨.
+        Thread.sleep(1_000L); // main thread 반납 후 Thread-0 실행 됨.
     }
 }
