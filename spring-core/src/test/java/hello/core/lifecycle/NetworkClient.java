@@ -6,7 +6,7 @@ import org.springframework.beans.factory.InitializingBean;
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
 
-public class NetworkClient {
+public class NetworkClient implements InitializingBean, DisposableBean {
     // 인터페이스 방법: +implements InitializingBean, DisposableBean
 
     private String url;
@@ -61,6 +61,17 @@ public class NetworkClient {
     public void close() {
         // 빈이 종료될 때 호출된다.
         System.out.println("NetworkClient.close");
+        disconnect();
+    }
+
+    @Override
+    public void afterPropertiesSet() throws Exception {
+        connect();
+        call("초기화 연결 메시지");
+    }
+
+    @Override
+    public void destroy() throws Exception {
         disconnect();
     }
 }

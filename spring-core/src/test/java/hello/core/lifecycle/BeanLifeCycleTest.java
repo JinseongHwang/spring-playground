@@ -27,7 +27,7 @@ public class BeanLifeCycleTest {
          * 4. destroyMethod 속성에는 default로 "close", "shutdown"이 매칭되어 있다. default랑 같다면 생략해도 된다.
          */
 
-        @Bean
+        @Bean(initMethod = "init", destroyMethod = "close")
         public NetworkClient networkClient() {
             NetworkClient networkClient = new NetworkClient();
             networkClient.setUrl("http://hello-spring.dev");
