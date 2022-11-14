@@ -1,1 +1,24 @@
+server:
+  port: 8080
+  shutdown: graceful
 
+spring:
+  datasource:
+    username: root
+    password: password
+    jdbcUrl: jdbc:mysql://localhost:3306/mdtest_user
+  second-datasource:
+    username: root
+    password: password
+    jdbcUrl: jdbc:mysql://localhost:13306/mdtest_team
+
+logging:
+  level:
+    root: INFO
+    org:
+      hibernate:
+        SQL: DEBUG
+        type:
+          descriptor:
+            sql:
+              BasicBinder: TRACE
