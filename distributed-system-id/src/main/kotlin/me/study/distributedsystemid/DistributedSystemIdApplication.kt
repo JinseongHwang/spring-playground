@@ -7,5 +7,5 @@ import org.springframework.boot.runApplication
 class DistributedSystemIdApplication
 
 fun main(args: Array<String>) {
-	runApplication<DistributedSystemIdApplication>(*args)
+    runApplication<DistributedSystemIdApplication>(*args)
 }
