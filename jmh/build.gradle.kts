@@ -18,6 +18,8 @@ dependencies {
     jmh("org.openjdk.jmh:jmh-core:$jmhVersion")
     jmh("org.openjdk.jmh:jmh-generator-annprocess:$jmhVersion")
 
+    api("com.fasterxml.jackson.module:jackson-module-kotlin:2.13.4")
+
     testImplementation(kotlin("test"))
 }
 
