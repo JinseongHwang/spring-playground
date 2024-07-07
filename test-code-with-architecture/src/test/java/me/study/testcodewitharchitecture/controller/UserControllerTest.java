@@ -7,10 +7,10 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-import me.study.testcodewitharchitecture.model.UserStatus;
-import me.study.testcodewitharchitecture.model.dto.UserUpdateDto;
-import me.study.testcodewitharchitecture.repository.UserEntity;
-import me.study.testcodewitharchitecture.repository.UserRepository;
+import me.study.testcodewitharchitecture.user.domain.UserStatus;
+import me.study.testcodewitharchitecture.user.domain.UserUpdateDto;
+import me.study.testcodewitharchitecture.user.repository.UserEntity;
+import me.study.testcodewitharchitecture.user.repository.UserRepository;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

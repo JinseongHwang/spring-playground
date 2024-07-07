@@ -3,10 +3,10 @@ package me.study.testcodewitharchitecture.service;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
 
-import me.study.testcodewitharchitecture.model.dto.PostCreateDto;
-import me.study.testcodewitharchitecture.model.dto.PostUpdateDto;
-import me.study.testcodewitharchitecture.repository.PostEntity;
-import org.junit.jupiter.api.Assertions;
+import me.study.testcodewitharchitecture.post.domain.PostCreateDto;
+import me.study.testcodewitharchitecture.post.domain.PostUpdateDto;
+import me.study.testcodewitharchitecture.post.repository.PostEntity;
+import me.study.testcodewitharchitecture.post.service.PostService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
