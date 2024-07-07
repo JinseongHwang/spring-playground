@@ -1,4 +1,4 @@
-package me.study.testcodewitharchitecture.service;
+package me.study.testcodewitharchitecture.user.service;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThatThrownBy;
