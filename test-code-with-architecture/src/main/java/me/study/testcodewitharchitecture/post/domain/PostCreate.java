@@ -5,13 +5,16 @@ import lombok.Builder;
 import lombok.Getter;
 
 @Getter
-public class PostUpdateDto {
+public class PostCreate {
 
+    private final long writerId;
     private final String content;
 
     @Builder
-    public PostUpdateDto(
+    public PostCreate(
+        @JsonProperty("writerId") long writerId,
         @JsonProperty("content") String content) {
+        this.writerId = writerId;
         this.content = content;
     }
 }

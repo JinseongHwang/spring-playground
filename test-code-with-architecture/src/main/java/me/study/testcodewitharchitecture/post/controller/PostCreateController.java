@@ -1,6 +1,6 @@
 package me.study.testcodewitharchitecture.post.controller;
 
-import me.study.testcodewitharchitecture.post.domain.PostCreateDto;
+import me.study.testcodewitharchitecture.post.domain.PostCreate;
 import me.study.testcodewitharchitecture.post.controller.response.PostResponse;
 import me.study.testcodewitharchitecture.post.service.PostService;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -22,9 +22,9 @@ public class PostCreateController {
     private final PostController postController;
 
     @PostMapping
-    public ResponseEntity<PostResponse> createPost(@RequestBody PostCreateDto postCreateDto) {
+    public ResponseEntity<PostResponse> createPost(@RequestBody PostCreate postCreate) {
         return ResponseEntity
             .status(HttpStatus.CREATED)
-            .body(postController.toResponse(postService.create(postCreateDto)));
+            .body(postController.toResponse(postService.create(postCreate)));
     }
 }

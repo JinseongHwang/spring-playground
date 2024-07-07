@@ -2,7 +2,7 @@ package me.study.testcodewitharchitecture.user.controller;
 
 import me.study.testcodewitharchitecture.user.controller.response.MyProfileResponse;
 import me.study.testcodewitharchitecture.user.controller.response.UserResponse;
-import me.study.testcodewitharchitecture.user.domain.UserUpdateDto;
+import me.study.testcodewitharchitecture.user.domain.UserUpdate;
 import me.study.testcodewitharchitecture.user.repository.UserEntity;
 import me.study.testcodewitharchitecture.user.service.UserService;
 import io.swagger.v3.oas.annotations.Parameter;
@@ -65,10 +65,10 @@ public class UserController {
     public ResponseEntity<MyProfileResponse> updateMyInfo(
         @Parameter(name = "EMAIL", in = ParameterIn.HEADER)
         @RequestHeader("EMAIL") String email, // 일반적으로 스프링 시큐리티를 사용한다면 UserPrincipal 에서 가져옵니다.
-        @RequestBody UserUpdateDto userUpdateDto
+        @RequestBody UserUpdate userUpdate
     ) {
         UserEntity userEntity = userService.getByEmail(email);
-        userEntity = userService.update(userEntity.getId(), userUpdateDto);
+        userEntity = userService.update(userEntity.getId(), userUpdate);
         return ResponseEntity
             .ok()
             .body(toMyProfileResponse(userEntity));

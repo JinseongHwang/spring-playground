@@ -8,8 +8,8 @@ import static org.mockito.ArgumentMatchers.any;
 import me.study.testcodewitharchitecture.common.domain.exception.CertificationCodeNotMatchedException;
 import me.study.testcodewitharchitecture.common.domain.exception.ResourceNotFoundException;
 import me.study.testcodewitharchitecture.user.domain.UserStatus;
-import me.study.testcodewitharchitecture.user.domain.UserCreateDto;
-import me.study.testcodewitharchitecture.user.domain.UserUpdateDto;
+import me.study.testcodewitharchitecture.user.domain.UserCreate;
+import me.study.testcodewitharchitecture.user.domain.UserUpdate;
 import me.study.testcodewitharchitecture.user.repository.UserEntity;
 import me.study.testcodewitharchitecture.user.service.UserService;
 import org.junit.jupiter.api.Test;
@@ -85,7 +85,7 @@ public class UserServiceTest {
     @Test
     void userCreateDto_를_이용하여_유저를_생성할_수_있다() {
         // given
-        UserCreateDto userCreateDto = UserCreateDto.builder()
+        UserCreate userCreate = UserCreate.builder()
             .email("kok202@kakao.com")
             .address("Gyeongi")
             .nickname("kok202-k")
@@ -96,20 +96,20 @@ public class UserServiceTest {
         // then
         assertThrows(
                 DataIntegrityViolationException.class,
-                () -> userService.create(userCreateDto)
+                () -> userService.create(userCreate)
         );
     }
 
     @Test
     void userUpdateDto_를_이용하여_유저를_수정할_수_있다() {
         // given
-        UserUpdateDto userUpdateDto = UserUpdateDto.builder()
+        UserUpdate userUpdate = UserUpdate.builder()
             .address("Incheon")
             .nickname("kok202-n")
             .build();
 
         // when
-        userService.update(1, userUpdateDto);
+        userService.update(1, userUpdate);
 
         // then
         UserEntity userEntity = userService.getById(1);

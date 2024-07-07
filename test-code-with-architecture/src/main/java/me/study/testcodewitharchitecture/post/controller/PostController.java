@@ -2,7 +2,7 @@ package me.study.testcodewitharchitecture.post.controller;
 
 import me.study.testcodewitharchitecture.user.controller.UserController;
 import me.study.testcodewitharchitecture.post.controller.response.PostResponse;
-import me.study.testcodewitharchitecture.post.domain.PostUpdateDto;
+import me.study.testcodewitharchitecture.post.domain.PostUpdate;
 import me.study.testcodewitharchitecture.post.repository.PostEntity;
 import me.study.testcodewitharchitecture.post.service.PostService;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -32,10 +32,10 @@ public class PostController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<PostResponse> updatePost(@PathVariable long id, @RequestBody PostUpdateDto postUpdateDto) {
+    public ResponseEntity<PostResponse> updatePost(@PathVariable long id, @RequestBody PostUpdate postUpdate) {
         return ResponseEntity
             .ok()
-            .body(toResponse(postService.update(id, postUpdateDto)));
+            .body(toResponse(postService.update(id, postUpdate)));
     }
 
     public PostResponse toResponse(PostEntity postEntity) {

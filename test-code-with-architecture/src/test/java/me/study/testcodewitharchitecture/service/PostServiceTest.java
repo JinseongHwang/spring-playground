@@ -3,8 +3,8 @@ package me.study.testcodewitharchitecture.service;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
 
-import me.study.testcodewitharchitecture.post.domain.PostCreateDto;
-import me.study.testcodewitharchitecture.post.domain.PostUpdateDto;
+import me.study.testcodewitharchitecture.post.domain.PostCreate;
+import me.study.testcodewitharchitecture.post.domain.PostUpdate;
 import me.study.testcodewitharchitecture.post.repository.PostEntity;
 import me.study.testcodewitharchitecture.post.service.PostService;
 import org.junit.jupiter.api.Test;
@@ -41,7 +41,7 @@ public class PostServiceTest {
     @Test
     void postCreateDto_를_이용하여_게시물을_생성할_수_있다() {
         // given
-        PostCreateDto postCreateDto = PostCreateDto.builder()
+        PostCreate postCreate = PostCreate.builder()
             .writerId(1)
             .content("foobar")
             .build();
@@ -50,19 +50,19 @@ public class PostServiceTest {
         // then
         assertThrows(
                 DataIntegrityViolationException.class,
-                () -> postService.create(postCreateDto)
+                () -> postService.create(postCreate)
         );
     }
 
     @Test
     void postUpdateDto_를_이용하여_게시물을_수정할_수_있다() {
         // given
-        PostUpdateDto postUpdateDto = PostUpdateDto.builder()
+        PostUpdate postUpdate = PostUpdate.builder()
             .content("hello world :)")
             .build();
 
         // when
-        postService.update(1, postUpdateDto);
+        postService.update(1, postUpdate);
 
         // then
         PostEntity postEntity= postService.getById(1);

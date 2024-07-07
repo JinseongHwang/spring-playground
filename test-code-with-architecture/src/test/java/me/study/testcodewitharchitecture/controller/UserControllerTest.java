@@ -8,7 +8,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import me.study.testcodewitharchitecture.user.domain.UserStatus;
-import me.study.testcodewitharchitecture.user.domain.UserUpdateDto;
+import me.study.testcodewitharchitecture.user.domain.UserUpdate;
 import me.study.testcodewitharchitecture.user.repository.UserEntity;
 import me.study.testcodewitharchitecture.user.repository.UserRepository;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -105,7 +105,7 @@ public class UserControllerTest {
     @Test
     void 사용자는_내_정보를_수정할_수_있다() throws Exception {
         // given
-        UserUpdateDto userUpdateDto = UserUpdateDto.builder()
+        UserUpdate userUpdate = UserUpdate.builder()
             .nickname("kok202-n")
             .address("Pangyo")
             .build();
@@ -116,7 +116,7 @@ public class UserControllerTest {
             put("/api/users/me")
                 .header("EMAIL", "kok202@naver.com")
                 .contentType(MediaType.APPLICATION_JSON)
-                .content(objectMapper.writeValueAsString(userUpdateDto)))
+                .content(objectMapper.writeValueAsString(userUpdate)))
             .andExpect(status().isOk())
             .andExpect(jsonPath("$.id").value(1))
             .andExpect(jsonPath("$.email").value("kok202@naver.com"))
