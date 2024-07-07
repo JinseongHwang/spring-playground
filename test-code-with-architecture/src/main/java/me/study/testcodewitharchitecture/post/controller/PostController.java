@@ -3,7 +3,7 @@ package me.study.testcodewitharchitecture.post.controller;
 import me.study.testcodewitharchitecture.user.controller.UserController;
 import me.study.testcodewitharchitecture.post.controller.response.PostResponse;
 import me.study.testcodewitharchitecture.post.domain.PostUpdate;
-import me.study.testcodewitharchitecture.post.repository.PostEntity;
+import me.study.testcodewitharchitecture.post.infrastructure.PostEntity;
 import me.study.testcodewitharchitecture.post.service.PostService;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;

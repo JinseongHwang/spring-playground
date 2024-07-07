@@ -10,7 +10,7 @@ import me.study.testcodewitharchitecture.common.domain.exception.ResourceNotFoun
 import me.study.testcodewitharchitecture.user.domain.UserStatus;
 import me.study.testcodewitharchitecture.user.domain.UserCreate;
 import me.study.testcodewitharchitecture.user.domain.UserUpdate;
-import me.study.testcodewitharchitecture.user.repository.UserEntity;
+import me.study.testcodewitharchitecture.user.infrastructure.UserEntity;
 import me.study.testcodewitharchitecture.user.service.UserService;
 import org.junit.jupiter.api.Test;
 import org.mockito.BDDMockito;

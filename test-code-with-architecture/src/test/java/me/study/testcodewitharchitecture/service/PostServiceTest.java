@@ -5,7 +5,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 import me.study.testcodewitharchitecture.post.domain.PostCreate;
 import me.study.testcodewitharchitecture.post.domain.PostUpdate;
-import me.study.testcodewitharchitecture.post.repository.PostEntity;
+import me.study.testcodewitharchitecture.post.infrastructure.PostEntity;
 import me.study.testcodewitharchitecture.post.service.PostService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

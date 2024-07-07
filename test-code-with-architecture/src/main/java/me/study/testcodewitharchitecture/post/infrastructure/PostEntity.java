@@ -1,4 +1,4 @@
-package me.study.testcodewitharchitecture.post.repository;
+package me.study.testcodewitharchitecture.post.infrastructure;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -10,7 +10,7 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import lombok.Getter;
 import lombok.Setter;
-import me.study.testcodewitharchitecture.user.repository.UserEntity;
+import me.study.testcodewitharchitecture.user.infrastructure.UserEntity;
 
 @Getter
 @Setter

@@ -1,4 +1,4 @@
-package me.study.testcodewitharchitecture.user.repository;
+package me.study.testcodewitharchitecture.user.infrastructure;
 
 import me.study.testcodewitharchitecture.user.domain.UserStatus;
 import java.util.Optional;

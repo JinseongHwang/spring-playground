@@ -5,8 +5,8 @@ import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import me.study.testcodewitharchitecture.user.domain.UserStatus;
 import java.util.Optional;
 
-import me.study.testcodewitharchitecture.user.repository.UserEntity;
-import me.study.testcodewitharchitecture.user.repository.UserRepository;
+import me.study.testcodewitharchitecture.user.infrastructure.UserEntity;
+import me.study.testcodewitharchitecture.user.infrastructure.UserRepository;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;

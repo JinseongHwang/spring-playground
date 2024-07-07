@@ -2,7 +2,7 @@ package me.study.testcodewitharchitecture.user.controller;
 
 import me.study.testcodewitharchitecture.user.domain.UserCreate;
 import me.study.testcodewitharchitecture.user.controller.response.UserResponse;
-import me.study.testcodewitharchitecture.user.repository.UserEntity;
+import me.study.testcodewitharchitecture.user.infrastructure.UserEntity;
 import me.study.testcodewitharchitecture.user.service.UserService;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;

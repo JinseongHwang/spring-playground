@@ -9,8 +9,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 import me.study.testcodewitharchitecture.user.domain.UserStatus;
 import me.study.testcodewitharchitecture.user.domain.UserUpdate;
-import me.study.testcodewitharchitecture.user.repository.UserEntity;
-import me.study.testcodewitharchitecture.user.repository.UserRepository;
+import me.study.testcodewitharchitecture.user.infrastructure.UserEntity;
+import me.study.testcodewitharchitecture.user.infrastructure.UserRepository;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
