@@ -14,14 +14,14 @@ class CertificationServiceTest {
         CertificationService certificationService = new CertificationService(mailSender);
 
         // when
-        certificationService.send("abc@example.com", 1, "1234");
+        certificationService.send("abc@example.com", 1, "aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaab");
 
         // then
         assertThat(mailSender.email).isEqualTo("abc@example.com");
         assertThat(mailSender.title).isEqualTo("Please certify your email address");
         assertThat(mailSender.content).isEqualTo(
                 "Please click the following link to certify your email address: " +
-                        "http://localhost:8080/api/users/1/verify?certificationCode=1234"
+                        "http://localhost:8080/api/users/1/verify?certificationCode=aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaab"
         );
     }
 }

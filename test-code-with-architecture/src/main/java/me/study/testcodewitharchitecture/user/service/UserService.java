@@ -24,7 +24,7 @@ public class UserService {
 
     public User getById(long id) {
         return userRepository.findByIdAndStatus(id, UserStatus.ACTIVE)
-                .orElseThrow(() -> new ResourceNotFoundException("User s", id));
+                .orElseThrow(() -> new ResourceNotFoundException("Users", id));
     }
 
     @Transactional
@@ -53,7 +53,8 @@ public class UserService {
     @Transactional
     public void verifyEmail(long id, String certificationCode) {
         User user = userRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Users", id));
-        user.certificate(certificationCode);
+        user = user.certificate(certificationCode);
+        userRepository.save(user);
     }
 
 

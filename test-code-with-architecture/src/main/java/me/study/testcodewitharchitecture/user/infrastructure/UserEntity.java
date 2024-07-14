@@ -38,6 +38,7 @@ public class UserEntity {
     public static UserEntity fromModel(User user) {
         UserEntity userEntity = new UserEntity();
         userEntity.id = user.getId();
+        userEntity.email = user.getEmail();
         userEntity.nickname = user.getNickname();
         userEntity.address = user.getAddress();
         userEntity.certificationCode = user.getCertificationCode();
