@@ -28,7 +28,7 @@ public class UserService {
 
     public UserEntity getById(long id) {
         return userRepository.findByIdAndStatus(id, UserStatus.ACTIVE)
-            .orElseThrow(() -> new ResourceNotFoundException("Users", id));
+            .orElseThrow(() -> new ResourceNotFoundException("User s", id));
     }
 
     @Transactional
