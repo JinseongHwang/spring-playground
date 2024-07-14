@@ -4,7 +4,7 @@ import me.study.testcodewitharchitecture.common.domain.exception.ResourceNotFoun
 import me.study.testcodewitharchitecture.post.domain.PostCreate;
 import me.study.testcodewitharchitecture.post.domain.PostUpdate;
 import me.study.testcodewitharchitecture.post.infrastructure.PostEntity;
-import me.study.testcodewitharchitecture.post.infrastructure.PostJpaRepository;
+import me.study.testcodewitharchitecture.post.service.port.PostRepository;
 import me.study.testcodewitharchitecture.user.infrastructure.UserEntity;
 import java.time.Clock;
 import lombok.RequiredArgsConstructor;
@@ -15,11 +15,11 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class PostService {
 
-    private final PostJpaRepository postJpaRepository;
+    private final PostRepository postRepository;
     private final UserService userService;
 
     public PostEntity getById(long id) {
-        return postJpaRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Posts", id));
+        return postRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Posts", id));
     }
 
     public PostEntity create(PostCreate postCreate) {
@@ -28,13 +28,13 @@ public class PostService {
         postEntity.setWriter(userEntity);
         postEntity.setContent(postCreate.getContent());
         postEntity.setCreatedAt(Clock.systemUTC().millis());
-        return postJpaRepository.save(postEntity);
+        return postRepository.save(postEntity);
     }
 
     public PostEntity update(long id, PostUpdate postUpdate) {
         PostEntity postEntity = getById(id);
         postEntity.setContent(postUpdate.getContent());
         postEntity.setModifiedAt(Clock.systemUTC().millis());
-        return postJpaRepository.save(postEntity);
+        return postRepository.save(postEntity);
     }
 }
