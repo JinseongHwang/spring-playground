@@ -1,19 +1,14 @@
 package me.study.testcodewitharchitecture.post.controller;
 
-import me.study.testcodewitharchitecture.user.controller.UserController;
+import io.swagger.v3.oas.annotations.tags.Tag;
+import lombok.RequiredArgsConstructor;
 import me.study.testcodewitharchitecture.post.controller.response.PostResponse;
 import me.study.testcodewitharchitecture.post.domain.PostUpdate;
 import me.study.testcodewitharchitecture.post.infrastructure.PostEntity;
 import me.study.testcodewitharchitecture.post.service.PostService;
-import io.swagger.v3.oas.annotations.tags.Tag;
-import lombok.RequiredArgsConstructor;
+import me.study.testcodewitharchitecture.user.controller.UserController;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @Tag(name = "게시물(posts)")
 @RestController
@@ -27,15 +22,15 @@ public class PostController {
     @GetMapping("/{id}")
     public ResponseEntity<PostResponse> getPostById(@PathVariable long id) {
         return ResponseEntity
-            .ok()
-            .body(toResponse(postService.getById(id)));
+                .ok()
+                .body(toResponse(postService.getById(id)));
     }
 
     @PutMapping("/{id}")
     public ResponseEntity<PostResponse> updatePost(@PathVariable long id, @RequestBody PostUpdate postUpdate) {
         return ResponseEntity
-            .ok()
-            .body(toResponse(postService.update(id, postUpdate)));
+                .ok()
+                .body(toResponse(postService.update(id, postUpdate)));
     }
 
     public PostResponse toResponse(PostEntity postEntity) {

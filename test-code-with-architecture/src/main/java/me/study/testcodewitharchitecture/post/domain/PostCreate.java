@@ -12,8 +12,8 @@ public class PostCreate {
 
     @Builder
     public PostCreate(
-        @JsonProperty("writerId") long writerId,
-        @JsonProperty("content") String content) {
+            @JsonProperty("writerId") long writerId,
+            @JsonProperty("content") String content) {
         this.writerId = writerId;
         this.content = content;
     }

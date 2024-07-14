@@ -1,10 +1,10 @@
 package me.study.testcodewitharchitecture.post.controller;
 
-import me.study.testcodewitharchitecture.post.domain.PostCreate;
-import me.study.testcodewitharchitecture.post.controller.response.PostResponse;
-import me.study.testcodewitharchitecture.post.service.PostService;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
+import me.study.testcodewitharchitecture.post.controller.response.PostResponse;
+import me.study.testcodewitharchitecture.post.domain.PostCreate;
+import me.study.testcodewitharchitecture.post.service.PostService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -24,7 +24,7 @@ public class PostCreateController {
     @PostMapping
     public ResponseEntity<PostResponse> createPost(@RequestBody PostCreate postCreate) {
         return ResponseEntity
-            .status(HttpStatus.CREATED)
-            .body(postController.toResponse(postService.create(postCreate)));
+                .status(HttpStatus.CREATED)
+                .body(postController.toResponse(postService.create(postCreate)));
     }
 }

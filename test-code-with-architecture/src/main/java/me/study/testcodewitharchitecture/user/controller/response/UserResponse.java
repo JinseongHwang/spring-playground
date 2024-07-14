@@ -1,8 +1,8 @@
 package me.study.testcodewitharchitecture.user.controller.response;
 
-import me.study.testcodewitharchitecture.user.domain.UserStatus;
 import lombok.Getter;
 import lombok.Setter;
+import me.study.testcodewitharchitecture.user.domain.UserStatus;
 
 @Getter
 @Setter

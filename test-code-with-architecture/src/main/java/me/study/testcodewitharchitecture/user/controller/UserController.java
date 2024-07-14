@@ -1,26 +1,19 @@
 package me.study.testcodewitharchitecture.user.controller;
 
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.enums.ParameterIn;
+import io.swagger.v3.oas.annotations.tags.Tag;
+import lombok.RequiredArgsConstructor;
 import me.study.testcodewitharchitecture.user.controller.response.MyProfileResponse;
 import me.study.testcodewitharchitecture.user.controller.response.UserResponse;
 import me.study.testcodewitharchitecture.user.domain.UserUpdate;
 import me.study.testcodewitharchitecture.user.infrastructure.UserEntity;
 import me.study.testcodewitharchitecture.user.service.UserService;
-import io.swagger.v3.oas.annotations.Parameter;
-import io.swagger.v3.oas.annotations.enums.ParameterIn;
-import io.swagger.v3.oas.annotations.tags.Tag;
-import java.net.URI;
-import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestHeader;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseStatus;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.net.URI;
 
 @Tag(name = "유저(users)")
 @RestController
@@ -34,44 +27,44 @@ public class UserController {
     @GetMapping("/{id}")
     public ResponseEntity<UserResponse> getUserById(@PathVariable long id) {
         return ResponseEntity
-            .ok()
-            .body(toResponse(userService.getById(id)));
+                .ok()
+                .body(toResponse(userService.getById(id)));
     }
 
     @GetMapping("/{id}/verify")
     public ResponseEntity<Void> verifyEmail(
-        @PathVariable long id,
-        @RequestParam String certificationCode) {
+            @PathVariable long id,
+            @RequestParam String certificationCode) {
         userService.verifyEmail(id, certificationCode);
         return ResponseEntity.status(HttpStatus.FOUND)
-            .location(URI.create("http://localhost:3000"))
-            .build();
+                .location(URI.create("http://localhost:3000"))
+                .build();
     }
 
     @GetMapping("/me")
     public ResponseEntity<MyProfileResponse> getMyInfo(
-        @Parameter(name = "EMAIL", in = ParameterIn.HEADER)
-        @RequestHeader("EMAIL") String email // 일반적으로 스프링 시큐리티를 사용한다면 UserPrincipal 에서 가져옵니다.
+            @Parameter(name = "EMAIL", in = ParameterIn.HEADER)
+            @RequestHeader("EMAIL") String email // 일반적으로 스프링 시큐리티를 사용한다면 UserPrincipal 에서 가져옵니다.
     ) {
         UserEntity userEntity = userService.getByEmail(email);
         userService.login(userEntity.getId());
         return ResponseEntity
-            .ok()
-            .body(toMyProfileResponse(userEntity));
+                .ok()
+                .body(toMyProfileResponse(userEntity));
     }
 
     @PutMapping("/me")
     @Parameter(in = ParameterIn.HEADER, name = "EMAIL")
     public ResponseEntity<MyProfileResponse> updateMyInfo(
-        @Parameter(name = "EMAIL", in = ParameterIn.HEADER)
-        @RequestHeader("EMAIL") String email, // 일반적으로 스프링 시큐리티를 사용한다면 UserPrincipal 에서 가져옵니다.
-        @RequestBody UserUpdate userUpdate
+            @Parameter(name = "EMAIL", in = ParameterIn.HEADER)
+            @RequestHeader("EMAIL") String email, // 일반적으로 스프링 시큐리티를 사용한다면 UserPrincipal 에서 가져옵니다.
+            @RequestBody UserUpdate userUpdate
     ) {
         UserEntity userEntity = userService.getByEmail(email);
         userEntity = userService.update(userEntity.getId(), userUpdate);
         return ResponseEntity
-            .ok()
-            .body(toMyProfileResponse(userEntity));
+                .ok()
+                .body(toMyProfileResponse(userEntity));
     }
 
     public UserResponse toResponse(UserEntity userEntity) {

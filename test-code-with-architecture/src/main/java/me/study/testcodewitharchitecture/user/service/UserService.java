@@ -1,18 +1,18 @@
 package me.study.testcodewitharchitecture.user.service;
 
+import lombok.RequiredArgsConstructor;
 import me.study.testcodewitharchitecture.common.domain.exception.CertificationCodeNotMatchedException;
 import me.study.testcodewitharchitecture.common.domain.exception.ResourceNotFoundException;
-import me.study.testcodewitharchitecture.user.domain.UserStatus;
 import me.study.testcodewitharchitecture.user.domain.UserCreate;
+import me.study.testcodewitharchitecture.user.domain.UserStatus;
 import me.study.testcodewitharchitecture.user.domain.UserUpdate;
 import me.study.testcodewitharchitecture.user.infrastructure.UserEntity;
-
-import java.time.Clock;
-import java.util.UUID;
-import lombok.RequiredArgsConstructor;
 import me.study.testcodewitharchitecture.user.service.port.UserRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.time.Clock;
+import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
@@ -23,12 +23,12 @@ public class UserService {
 
     public UserEntity getByEmail(String email) {
         return userRepository.findByEmailAndStatus(email, UserStatus.ACTIVE)
-            .orElseThrow(() -> new ResourceNotFoundException("Users", email));
+                .orElseThrow(() -> new ResourceNotFoundException("Users", email));
     }
 
     public UserEntity getById(long id) {
         return userRepository.findByIdAndStatus(id, UserStatus.ACTIVE)
-            .orElseThrow(() -> new ResourceNotFoundException("User s", id));
+                .orElseThrow(() -> new ResourceNotFoundException("User s", id));
     }
 
     @Transactional

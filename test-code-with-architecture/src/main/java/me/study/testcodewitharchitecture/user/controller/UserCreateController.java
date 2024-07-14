@@ -1,11 +1,11 @@
 package me.study.testcodewitharchitecture.user.controller;
 
-import me.study.testcodewitharchitecture.user.domain.UserCreate;
-import me.study.testcodewitharchitecture.user.controller.response.UserResponse;
-import me.study.testcodewitharchitecture.user.infrastructure.UserEntity;
-import me.study.testcodewitharchitecture.user.service.UserService;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
+import me.study.testcodewitharchitecture.user.controller.response.UserResponse;
+import me.study.testcodewitharchitecture.user.domain.UserCreate;
+import me.study.testcodewitharchitecture.user.infrastructure.UserEntity;
+import me.study.testcodewitharchitecture.user.service.UserService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -26,8 +26,8 @@ public class UserCreateController {
     public ResponseEntity<UserResponse> createUser(@RequestBody UserCreate userCreate) {
         UserEntity userEntity = userService.create(userCreate);
         return ResponseEntity
-            .status(HttpStatus.CREATED)
-            .body(userController.toResponse(userEntity));
+                .status(HttpStatus.CREATED)
+                .body(userController.toResponse(userEntity));
     }
 
 }

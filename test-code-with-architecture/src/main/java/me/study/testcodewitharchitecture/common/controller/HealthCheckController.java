@@ -12,7 +12,7 @@ public class HealthCheckController {
     @GetMapping("/health_check.html")
     public ResponseEntity<Void> healthCheck() {
         return ResponseEntity
-            .ok()
-            .build();
+                .ok()
+                .build();
     }
 }

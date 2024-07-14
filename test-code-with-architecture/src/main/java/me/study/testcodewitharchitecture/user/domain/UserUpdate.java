@@ -12,8 +12,8 @@ public class UserUpdate {
 
     @Builder
     public UserUpdate(
-        @JsonProperty("nickname") String nickname,
-        @JsonProperty("address") String address) {
+            @JsonProperty("nickname") String nickname,
+            @JsonProperty("address") String address) {
         this.nickname = nickname;
         this.address = address;
     }

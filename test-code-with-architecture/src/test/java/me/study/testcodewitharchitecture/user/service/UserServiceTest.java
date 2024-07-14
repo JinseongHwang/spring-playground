@@ -1,17 +1,11 @@
 package me.study.testcodewitharchitecture.user.service;
 
-import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
-import static org.assertj.core.api.AssertionsForClassTypes.assertThatThrownBy;
-import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.mockito.ArgumentMatchers.any;
-
 import me.study.testcodewitharchitecture.common.domain.exception.CertificationCodeNotMatchedException;
 import me.study.testcodewitharchitecture.common.domain.exception.ResourceNotFoundException;
-import me.study.testcodewitharchitecture.user.domain.UserStatus;
 import me.study.testcodewitharchitecture.user.domain.UserCreate;
+import me.study.testcodewitharchitecture.user.domain.UserStatus;
 import me.study.testcodewitharchitecture.user.domain.UserUpdate;
 import me.study.testcodewitharchitecture.user.infrastructure.UserEntity;
-import me.study.testcodewitharchitecture.user.service.UserService;
 import org.junit.jupiter.api.Test;
 import org.mockito.BDDMockito;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,11 +19,16 @@ import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.context.jdbc.Sql.ExecutionPhase;
 import org.springframework.test.context.jdbc.SqlGroup;
 
+import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
+import static org.assertj.core.api.AssertionsForClassTypes.assertThatThrownBy;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.mockito.ArgumentMatchers.any;
+
 @SpringBootTest
 @TestPropertySource("classpath:test-application.yml")
 @SqlGroup({
-    @Sql(value = "/sql/user-service-test-data.sql", executionPhase = ExecutionPhase.BEFORE_TEST_METHOD),
-    @Sql(value = "/sql/delete-all-data.sql", executionPhase = ExecutionPhase.AFTER_TEST_METHOD)
+        @Sql(value = "/sql/user-service-test-data.sql", executionPhase = ExecutionPhase.BEFORE_TEST_METHOD),
+        @Sql(value = "/sql/delete-all-data.sql", executionPhase = ExecutionPhase.AFTER_TEST_METHOD)
 })
 public class UserServiceTest {
 
@@ -86,10 +85,10 @@ public class UserServiceTest {
     void userCreateDto_를_이용하여_유저를_생성할_수_있다() {
         // given
         UserCreate userCreate = UserCreate.builder()
-            .email("kok202@kakao.com")
-            .address("Gyeongi")
-            .nickname("kok202-k")
-            .build();
+                .email("kok202@kakao.com")
+                .address("Gyeongi")
+                .nickname("kok202-k")
+                .build();
         BDDMockito.doNothing().when(mailSender).send(any(SimpleMailMessage.class));
 
         // when
@@ -104,9 +103,9 @@ public class UserServiceTest {
     void userUpdateDto_를_이용하여_유저를_수정할_수_있다() {
         // given
         UserUpdate userUpdate = UserUpdate.builder()
-            .address("Incheon")
-            .nickname("kok202-n")
-            .build();
+                .address("Incheon")
+                .nickname("kok202-n")
+                .build();
 
         // when
         userService.update(1, userUpdate);
