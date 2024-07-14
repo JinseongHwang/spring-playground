@@ -3,6 +3,7 @@ package me.study.testcodewitharchitecture.user.infrastructure;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
+import me.study.testcodewitharchitecture.user.domain.User;
 import me.study.testcodewitharchitecture.user.domain.UserStatus;
 
 @Getter
@@ -33,4 +34,27 @@ public class UserEntity {
 
     @Column(name = "last_login_at")
     private Long lastLoginAt;
+
+    public static UserEntity fromModel(User user) {
+        UserEntity userEntity = new UserEntity();
+        userEntity.id = user.getId();
+        userEntity.nickname = user.getNickname();
+        userEntity.address = user.getAddress();
+        userEntity.certificationCode = user.getCertificationCode();
+        userEntity.status = user.getStatus();
+        userEntity.lastLoginAt = user.getLastLoginAt();
+        return userEntity;
+    }
+
+    public User toModel() {
+        return User.builder()
+                .id(id)
+                .email(email)
+                .nickname(nickname)
+                .address(address)
+                .certificationCode(certificationCode)
+                .status(status)
+                .lastLoginAt(lastLoginAt)
+                .build();
+    }
 }
