@@ -2,7 +2,6 @@ package me.study.testcodewitharchitecture.user.controller.response;
 
 import lombok.Builder;
 import lombok.Getter;
-import lombok.Setter;
 import me.study.testcodewitharchitecture.user.domain.User;
 import me.study.testcodewitharchitecture.user.domain.UserStatus;
 

@@ -3,7 +3,6 @@ package me.study.testcodewitharchitecture.user.domain;
 import lombok.Builder;
 import lombok.Getter;
 import me.study.testcodewitharchitecture.common.domain.exception.CertificationCodeNotMatchedException;
-import me.study.testcodewitharchitecture.common.domain.exception.ResourceNotFoundException;
 
 import java.time.Clock;
 import java.util.UUID;

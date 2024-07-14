@@ -3,7 +3,6 @@ package me.study.testcodewitharchitecture.post.service;
 import me.study.testcodewitharchitecture.post.domain.Post;
 import me.study.testcodewitharchitecture.post.domain.PostCreate;
 import me.study.testcodewitharchitecture.post.domain.PostUpdate;
-import me.study.testcodewitharchitecture.post.infrastructure.PostEntity;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
