@@ -1,5 +1,6 @@
 package me.study.testcodewitharchitecture.post.service;
 
+import me.study.testcodewitharchitecture.post.domain.Post;
 import me.study.testcodewitharchitecture.post.domain.PostCreate;
 import me.study.testcodewitharchitecture.post.domain.PostUpdate;
 import me.study.testcodewitharchitecture.post.infrastructure.PostEntity;
@@ -30,7 +31,7 @@ public class PostServiceTest {
     void getById는_존재하는_게시물을_내려준다() {
         // given
         // when
-        PostEntity result = postService.getById(1);
+        Post result = postService.getById(1);
 
         // then
         assertThat(result.getContent()).isEqualTo("helloworld");
@@ -64,9 +65,9 @@ public class PostServiceTest {
         postService.update(1, postUpdate);
 
         // then
-        PostEntity postEntity = postService.getById(1);
-        assertThat(postEntity.getContent()).isEqualTo("hello world :)");
-        assertThat(postEntity.getModifiedAt()).isGreaterThan(0);
+        Post post1 = postService.getById(1);
+        assertThat(post1.getContent()).isEqualTo("hello world :)");
+        assertThat(post1.getModifiedAt()).isGreaterThan(0);
     }
 
 }

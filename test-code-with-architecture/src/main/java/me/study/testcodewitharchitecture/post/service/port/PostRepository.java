@@ -1,11 +1,11 @@
 package me.study.testcodewitharchitecture.post.service.port;
 
-import me.study.testcodewitharchitecture.post.infrastructure.PostEntity;
+import me.study.testcodewitharchitecture.post.domain.Post;
 
 import java.util.Optional;
 
 public interface PostRepository {
-    Optional<PostEntity> findById(long id);
+    Optional<Post> findById(long id);
 
-    PostEntity save(PostEntity postEntity);
+    Post save(Post post);
 }

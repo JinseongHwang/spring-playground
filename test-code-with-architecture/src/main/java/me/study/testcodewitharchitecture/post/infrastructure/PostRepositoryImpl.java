@@ -1,6 +1,7 @@
 package me.study.testcodewitharchitecture.post.infrastructure;
 
 import lombok.RequiredArgsConstructor;
+import me.study.testcodewitharchitecture.post.domain.Post;
 import me.study.testcodewitharchitecture.post.service.port.PostRepository;
 import org.springframework.stereotype.Repository;
 
@@ -13,12 +14,12 @@ public class PostRepositoryImpl implements PostRepository {
     private final PostJpaRepository postJpaRepository;
 
     @Override
-    public Optional<PostEntity> findById(long id) {
-        return postJpaRepository.findById(id);
+    public Optional<Post> findById(long id) {
+        return postJpaRepository.findById(id).map(PostEntity::toModel);
     }
 
     @Override
-    public PostEntity save(PostEntity postEntity) {
-        return postJpaRepository.save(postEntity);
+    public Post save(Post post) {
+        return postJpaRepository.save(PostEntity.fromModel(post)).toModel();
     }
 }
