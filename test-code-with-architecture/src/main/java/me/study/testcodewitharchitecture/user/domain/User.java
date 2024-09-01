@@ -6,9 +6,6 @@ import me.study.testcodewitharchitecture.common.domain.exception.CertificationCo
 import me.study.testcodewitharchitecture.common.service.port.ClockHolder;
 import me.study.testcodewitharchitecture.common.service.port.UuidHolder;
 
-import java.time.Clock;
-import java.util.UUID;
-
 @Getter
 public class User {
 

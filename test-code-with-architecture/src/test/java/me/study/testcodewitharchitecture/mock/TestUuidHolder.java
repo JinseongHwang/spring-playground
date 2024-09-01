@@ -1,7 +1,7 @@
 package me.study.testcodewitharchitecture.mock;
 
-import me.study.testcodewitharchitecture.common.service.port.UuidHolder;
 import lombok.RequiredArgsConstructor;
+import me.study.testcodewitharchitecture.common.service.port.UuidHolder;
 
 @RequiredArgsConstructor
 public class TestUuidHolder implements UuidHolder {
