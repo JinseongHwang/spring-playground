@@ -1,6 +1,7 @@
 package me.study.testcodewitharchitecture.user.infrastructure;
 
 import lombok.RequiredArgsConstructor;
+import me.study.testcodewitharchitecture.common.domain.exception.ResourceNotFoundException;
 import me.study.testcodewitharchitecture.user.domain.User;
 import me.study.testcodewitharchitecture.user.domain.UserStatus;
 import me.study.testcodewitharchitecture.user.service.port.UserRepository;
@@ -32,5 +33,10 @@ public class UserRepositoryImpl implements UserRepository {
     @Override
     public User save(User user) {
         return userJpaRepository.save(UserEntity.fromModel(user)).toModel();
+    }
+
+    @Override
+    public User getById(long id) {
+        return findById(id).orElseThrow(() -> new ResourceNotFoundException("User", id));
     }
 }

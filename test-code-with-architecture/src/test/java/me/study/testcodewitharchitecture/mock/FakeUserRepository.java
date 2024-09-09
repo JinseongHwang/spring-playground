@@ -1,5 +1,6 @@
 package me.study.testcodewitharchitecture.mock;
 
+import me.study.testcodewitharchitecture.common.domain.exception.ResourceNotFoundException;
 import me.study.testcodewitharchitecture.user.domain.User;
 import me.study.testcodewitharchitecture.user.domain.UserStatus;
 import me.study.testcodewitharchitecture.user.service.port.UserRepository;
@@ -53,5 +54,10 @@ public class FakeUserRepository implements UserRepository {
             data.add(user);
             return user;
         }
+    }
+
+    @Override
+    public User getById(long id) {
+        return findById(id).orElseThrow(() -> new ResourceNotFoundException("User", id));
     }
 }
