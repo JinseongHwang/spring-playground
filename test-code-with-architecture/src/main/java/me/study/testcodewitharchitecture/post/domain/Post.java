@@ -5,8 +5,6 @@ import lombok.Getter;
 import me.study.testcodewitharchitecture.common.service.port.ClockHolder;
 import me.study.testcodewitharchitecture.user.domain.User;
 
-import java.time.Clock;
-
 @Getter
 public class Post {
 

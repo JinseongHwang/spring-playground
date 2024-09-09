@@ -1,25 +1,17 @@
 package me.study.testcodewitharchitecture.post.service;
 
-import me.study.testcodewitharchitecture.mock.*;
+import me.study.testcodewitharchitecture.mock.FakePostRepository;
+import me.study.testcodewitharchitecture.mock.FakeUserRepository;
+import me.study.testcodewitharchitecture.mock.TestClockHolder;
 import me.study.testcodewitharchitecture.post.domain.Post;
 import me.study.testcodewitharchitecture.post.domain.PostCreate;
 import me.study.testcodewitharchitecture.post.domain.PostUpdate;
 import me.study.testcodewitharchitecture.user.domain.User;
 import me.study.testcodewitharchitecture.user.domain.UserStatus;
-import me.study.testcodewitharchitecture.user.service.CertificationService;
-import me.study.testcodewitharchitecture.user.service.UserService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.dao.DataIntegrityViolationException;
-import org.springframework.test.context.TestPropertySource;
-import org.springframework.test.context.jdbc.Sql;
-import org.springframework.test.context.jdbc.Sql.ExecutionPhase;
-import org.springframework.test.context.jdbc.SqlGroup;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
-import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class PostServiceTest {
 
