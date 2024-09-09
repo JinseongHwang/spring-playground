@@ -1,5 +1,6 @@
 package me.study.testcodewitharchitecture.user.service;
 
+import lombok.Builder;
 import lombok.RequiredArgsConstructor;
 import me.study.testcodewitharchitecture.common.domain.exception.ResourceNotFoundException;
 import me.study.testcodewitharchitecture.common.service.port.ClockHolder;
@@ -13,6 +14,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 @Service
+@Builder
 @RequiredArgsConstructor
 public class UserService {
 
