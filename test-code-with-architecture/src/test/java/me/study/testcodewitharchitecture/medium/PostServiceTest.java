@@ -1,8 +1,9 @@
-package me.study.testcodewitharchitecture.post.service;
+package me.study.testcodewitharchitecture.medium;
 
 import me.study.testcodewitharchitecture.post.domain.Post;
 import me.study.testcodewitharchitecture.post.domain.PostCreate;
 import me.study.testcodewitharchitecture.post.domain.PostUpdate;
+import me.study.testcodewitharchitecture.post.service.PostService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;

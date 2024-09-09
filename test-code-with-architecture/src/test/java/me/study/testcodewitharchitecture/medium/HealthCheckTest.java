@@ -1,4 +1,4 @@
-package me.study.testcodewitharchitecture.common.controller;
+package me.study.testcodewitharchitecture.medium;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

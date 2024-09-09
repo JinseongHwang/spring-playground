@@ -1,4 +1,4 @@
-package me.study.testcodewitharchitecture.post.controller;
+package me.study.testcodewitharchitecture.medium;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import me.study.testcodewitharchitecture.post.domain.PostUpdate;

@@ -1,4 +1,4 @@
-package me.study.testcodewitharchitecture.user.service;
+package me.study.testcodewitharchitecture.medium;
 
 import me.study.testcodewitharchitecture.common.domain.exception.CertificationCodeNotMatchedException;
 import me.study.testcodewitharchitecture.common.domain.exception.ResourceNotFoundException;
@@ -6,6 +6,7 @@ import me.study.testcodewitharchitecture.user.domain.User;
 import me.study.testcodewitharchitecture.user.domain.UserCreate;
 import me.study.testcodewitharchitecture.user.domain.UserStatus;
 import me.study.testcodewitharchitecture.user.domain.UserUpdate;
+import me.study.testcodewitharchitecture.user.service.UserService;
 import org.junit.jupiter.api.Test;
 import org.mockito.BDDMockito;
 import org.springframework.beans.factory.annotation.Autowired;
