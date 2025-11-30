@@ -1,0 +1,8 @@
+spring:
+  application:
+    name: observability
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
